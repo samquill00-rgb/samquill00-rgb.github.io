@@ -107,6 +107,15 @@ img.white-swan {
   border-radius: 3px;
 }
 
+/* Book caption */
+.book-caption {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 0.4rem;
+  margin-bottom: 2rem;
+}
+
 /* Publication list */
 ul.pub-list {
   list-style: none;
