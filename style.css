@@ -92,11 +92,14 @@ blockquote {
 
 /* Image styling */
 img.profile {
-  max-width: 100%;
+  max-width: 540px;
+  width: 100%;
   height: auto;
   display: block;
   margin: 0 auto 0.5rem auto;
-  border-radius: 6px;
+  border-radius: 4px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  filter: contrast(1.08) saturate(0.82) brightness(0.97);
 }
 
 img.white-swan {
