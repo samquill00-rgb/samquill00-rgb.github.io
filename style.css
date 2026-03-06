@@ -55,10 +55,10 @@ nav {
 
 nav a {
   position: relative;
-  margin-right: 0.6rem;
+  margin-right: 0.45rem;
   text-decoration: none;
   color: #444;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
 }
 
 nav a:hover {
