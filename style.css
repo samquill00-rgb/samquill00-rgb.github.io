@@ -449,6 +449,59 @@ ul.pub-list li::before {
   border-top: 1px dotted #d4c4a8;
 }
 
+/* Prix Fixe three-column grid */
+.prix-fixe-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  margin-top: 1rem;
+}
+
+.prix-fixe-col {
+  text-align: center;
+}
+
+.prix-fixe-title {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-style: italic;
+  color: #8b6f47;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.prix-fixe-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: prix-fixe-counter;
+}
+
+.prix-fixe-list li {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 0.88rem;
+  color: #3a2a18;
+  padding: 0.2rem 0;
+  counter-increment: prix-fixe-counter;
+}
+
+.prix-fixe-list li::before {
+  content: counter(prix-fixe-counter) ". ";
+  color: #8b6f47;
+}
+
+.prix-fixe-list li + li {
+  border-top: 1px dotted #d4c4a8;
+}
+
+@media (max-width: 600px) {
+  .prix-fixe-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Responsive adjustments */
 @media (max-width: 600px) {
   .salon-menu-inner {
