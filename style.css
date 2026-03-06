@@ -84,10 +84,23 @@ a.button:hover {
 }
 
 blockquote {
-  margin: 1.5rem 0 2rem 1.5rem;
-  padding-left: 1.25rem;
-  border-left: 2px solid #ddd;
-  color: #444;
+  margin: 2rem 0;
+  padding: 1rem 1.5rem;
+  border-left: 3px solid #c4a85a;
+  background: linear-gradient(to right, rgba(196,168,90,0.05), transparent 80%);
+  color: #4a3520;
+  font-style: italic;
+}
+
+blockquote p {
+  margin: 0.3rem 0;
+}
+
+blockquote p:last-child {
+  font-style: normal;
+  font-size: 0.88rem;
+  color: #7a6248;
+  margin-top: 0.6rem;
 }
 
 /* Image styling */
@@ -487,5 +500,249 @@ ul.pub-list li::before {
   }
   .chalkboard-columns {
     flex-direction: column;
+  }
+}
+
+/* =============================================
+   Home — Calling Card
+   ============================================= */
+
+.standfirst {
+  text-align: center;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #4a3520;
+  letter-spacing: 0.01em;
+  line-height: 1.85;
+  margin: 0 auto 1.5rem;
+  max-width: 560px;
+}
+
+.page-ornament {
+  text-align: center;
+  color: #c4a85a;
+  font-size: 1rem;
+  letter-spacing: 0.45em;
+  margin: 1.8rem 0;
+}
+
+/* =============================================
+   Poetry — Literary Folio
+   ============================================= */
+
+.pub-section-rule {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right,
+    transparent 0%, #d4c4a8 20%, #c4a85a 50%, #d4c4a8 80%, transparent 100%);
+  margin: 2.5rem 0;
+}
+
+/* =============================================
+   Music — Liner Notes
+   ============================================= */
+
+.music-panel {
+  background: #18181f;
+  color: #d8d0bc;
+  border-radius: 2px;
+  padding: 2rem 2.5rem;
+  margin: 2rem 0;
+  box-shadow: 0 4px 28px rgba(0,0,0,0.35);
+}
+
+.music-panel h2 {
+  color: #c4a85a;
+  font-size: 1rem;
+  font-weight: normal;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(196,168,90,0.28);
+  padding-bottom: 0.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.music-panel p {
+  color: #b0a890;
+  font-size: 0.92rem;
+  line-height: 1.75;
+}
+
+.music-panel blockquote {
+  border-left: 2px solid rgba(196,168,90,0.5);
+  background: rgba(196,168,90,0.04);
+  color: #a8a090;
+  margin: 1.5rem 0;
+  padding: 0.8rem 1.2rem;
+}
+
+.music-panel blockquote p:last-child {
+  color: #6a6050;
+}
+
+.music-panel a.button {
+  background: #c4a85a;
+  color: #18181f;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+}
+
+.music-panel a.button:hover {
+  background: #d4b870;
+}
+
+/* =============================================
+   Grub Street — Broadsheet
+   ============================================= */
+
+.grub-masthead {
+  border-top: 3px double #3a2a18;
+  border-bottom: 1px solid #3a2a18;
+  padding: 0.8rem 0;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.grub-masthead h2 {
+  font-size: 1.9rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: normal;
+  color: #3a2a18;
+  margin: 0 0 0.2rem;
+}
+
+.grub-masthead p {
+  font-style: italic;
+  font-size: 0.85rem;
+  color: #7a6248;
+  margin: 0;
+}
+
+/* =============================================
+   Tutoring — Academic Prospectus
+   ============================================= */
+
+.prospectus-intro {
+  font-size: 1rem;
+  color: #4a3520;
+  line-height: 1.85;
+  border-left: 3px solid #c4a85a;
+  padding-left: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.prospectus-section {
+  margin: 2rem 0;
+}
+
+.prospectus-section h3 {
+  font-size: 0.8rem;
+  font-weight: normal;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8b6f47;
+  border-bottom: 1px solid #d4c4a8;
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.8rem;
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.8rem;
+  margin: 1rem 0;
+}
+
+.result-stat {
+  text-align: center;
+  background: linear-gradient(135deg, #fdfbf6 0%, #f5f0e6 100%);
+  border: 1px solid #d4c4a8;
+  padding: 1rem 0.5rem;
+  border-radius: 2px;
+}
+
+.result-stat .number {
+  display: block;
+  font-size: 2rem;
+  font-weight: normal;
+  color: #3a2a18;
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.result-stat .school {
+  font-size: 0.75rem;
+  color: #7a6248;
+  font-style: italic;
+}
+
+.credential-block {
+  background: linear-gradient(135deg, #fdfbf6 0%, #f5f0e6 100%);
+  border: 1px solid #d4c4a8;
+  border-radius: 2px;
+  padding: 1.2rem 1.5rem;
+  margin: 1rem 0;
+}
+
+.credential-block li {
+  font-size: 0.9rem;
+  color: #4a3520;
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+/* =============================================
+   Testimonials — Graceful placeholder
+   ============================================= */
+
+.testimonials-placeholder {
+  text-align: center;
+  font-style: italic;
+  color: #7a6248;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  margin: 3rem auto;
+  padding: 2rem 0;
+  border-top: 1px solid #d4c4a8;
+  border-bottom: 1px solid #d4c4a8;
+  max-width: 340px;
+}
+
+/* =============================================
+   Contact — Visiting Hours
+   ============================================= */
+
+.contact-card {
+  max-width: 400px;
+  margin: 2rem auto;
+  text-align: center;
+  border: 1px solid #d4c4a8;
+  border-radius: 2px;
+  padding: 2rem 2.5rem;
+  background: linear-gradient(135deg, #fdfbf6 0%, #f5f0e6 100%);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.contact-card p {
+  font-size: 0.92rem;
+  color: #5a4a38;
+  margin: 0.4rem 0;
+}
+
+.contact-card a {
+  color: #8b6f47;
+}
+
+.contact-card a:hover {
+  color: #3a2a18;
+}
+
+@media (max-width: 600px) {
+  .result-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .music-panel {
+    padding: 1.5rem 1.2rem;
   }
 }
