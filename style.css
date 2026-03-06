@@ -841,17 +841,18 @@ ul.pub-list li::before {
 
 .home-help-btn {
   display: inline-block;
-  padding: 0.75rem 2rem;
+  padding: 1rem 3rem;
   background-color: #8b6f47;
   color: #fff;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: bold;
-  letter-spacing: 0.1em;
-  border: 2px solid #8b6f47;
+  letter-spacing: 0.15em;
+  border: 3px solid #8b6f47;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .home-help-btn:hover {
