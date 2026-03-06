@@ -3,7 +3,7 @@ html {
 }
 
 body {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
   background-color: #f8f6f2;
   color: #222;
   max-width: 780px;
@@ -253,7 +253,7 @@ ul.pub-list li::before {
 /* Title */
 .salon-title {
   text-align: center;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
   font-size: 1.6rem;
   font-weight: normal;
   letter-spacing: 0.12em;
@@ -337,7 +337,7 @@ ul.pub-list li::before {
 /* Course heading (e.g., "To Begin", "The Carte") */
 .salon-course-title {
   text-align: center;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
   font-size: 1.05rem;
   font-weight: normal;
   font-style: italic;
@@ -356,7 +356,7 @@ ul.pub-list li::before {
 /* Item name (bold dish name) */
 .salon-item-name {
   display: block;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
   font-size: 1rem;
   font-weight: bold;
   color: #3a2a18;
@@ -391,7 +391,7 @@ ul.pub-list li::before {
 }
 
 .salon-topic-list li {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
   font-size: 0.9rem;
   color: #3a2a18;
   text-align: center;
@@ -447,7 +447,7 @@ ul.pub-list li::before {
 .chalkboard-title {
   text-align: center;
   color: #e0dcc8;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
   font-size: 1.3rem;
   font-weight: normal;
   letter-spacing: 0.25em;
@@ -480,7 +480,7 @@ ul.pub-list li::before {
 }
 
 .chalkboard-list li {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
   font-size: 0.8rem;
   line-height: 1.55;
   color: #e0dcc8;
