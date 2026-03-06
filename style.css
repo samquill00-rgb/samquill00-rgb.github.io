@@ -31,7 +31,7 @@ footer {
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 3.2rem;
   letter-spacing: 0.08em;
   margin-bottom: 1.2rem;
 }
@@ -49,6 +49,7 @@ h3 {
 }
 
 nav a {
+  position: relative;
   margin-right: 0.7rem;
   text-decoration: none;
   color: #444;
@@ -63,6 +64,32 @@ nav a:hover {
 nav a.active {
   color: #222;
   text-decoration: underline;
+}
+
+/* Nav tooltips */
+nav a[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  background: #3a2a18;
+  color: #f5f0e6;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 0.78rem;
+  font-style: italic;
+  line-height: 1.5;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #c4a85a;
+  border-radius: 2px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+  z-index: 100;
+}
+
+nav a[data-tooltip]:hover::after {
+  opacity: 1;
 }
 
 a.button {
