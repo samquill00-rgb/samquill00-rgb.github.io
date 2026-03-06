@@ -259,6 +259,29 @@ ul.pub-list li::before {
   margin: 0.4rem 0 1rem;
 }
 
+/* Pull quote (Marriott / Sunday Times) */
+.salon-pull-quote {
+  text-align: center;
+  font-style: italic;
+  font-size: 1rem;
+  color: #4a3520;
+  line-height: 1.7;
+  margin: 1rem auto 1.2rem;
+  max-width: 480px;
+  border-top: 1px solid #c4a85a;
+  border-bottom: 1px solid #c4a85a;
+  padding: 0.6rem 0;
+}
+
+.salon-pull-quote-attr {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+  font-style: normal;
+  letter-spacing: 0.03em;
+  color: #7a6248;
+}
+
 /* Decorative flourish (star/flower symbol) */
 .salon-flourish {
   text-align: center;
