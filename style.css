@@ -842,8 +842,8 @@ ul.pub-list li::before {
 .home-help-btn {
   display: inline-block;
   padding: 0.55rem 1.6rem;
-  background-color: #8b6f47;
-  color: #fff;
+  background-color: rgba(139, 111, 71, 0.15);
+  color: #8b6f47;
   font-family: inherit;
   font-size: 0.95rem;
   font-weight: bold;
@@ -855,8 +855,7 @@ ul.pub-list li::before {
 }
 
 .home-help-btn:hover {
-  background-color: #3a2a18;
-  border-color: #3a2a18;
+  background-color: #8b6f47;
   color: #fff;
 }
 
