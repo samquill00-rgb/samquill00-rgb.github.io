@@ -903,7 +903,7 @@ ul.pub-list li::before {
   font-size: 0.95rem;
   font-weight: bold;
   letter-spacing: 0.1em;
-  border: 2px solid #8b6f47;
+  border: 2px solid #c4a85a;
   border-radius: 3px;
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease;
