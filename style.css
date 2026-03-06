@@ -832,20 +832,49 @@ ul.pub-list li::before {
   color: #8b6f47;
 }
 
-/* Home page 'Can I help you?' link */
+/* Home page 'MAY I HELP YOU?' button */
 .home-help-link {
   display: inline-block;
-  margin-top: 1rem;
-  font-style: italic;
-  color: #8b6f47;
+  margin-top: 1.2rem;
   text-decoration: none;
-  font-size: 1rem;
-  border-bottom: 1px solid #c4a85a;
-  padding-bottom: 0.1rem;
 }
 
-.home-help-link:hover {
-  color: #3a2a18;
+.home-help-btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background-color: #8b6f47;
+  color: #fff;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  border: 2px solid #8b6f47;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.home-help-btn:hover {
+  background-color: #3a2a18;
+  border-color: #3a2a18;
+  color: #fff;
+}
+
+/* Help page sections */
+.help-section {
+  margin-bottom: 2.2rem;
+}
+
+.help-section-title {
+  font-size: 1rem;
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  color: #8b6f47;
+  text-transform: uppercase;
+  border-bottom: 1px solid #c4a85a;
+  padding-bottom: 0.3rem;
+  margin-bottom: 1rem;
 }
 
 @media (max-width: 600px) {
