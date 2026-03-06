@@ -802,16 +802,16 @@ ul.pub-list li::before {
 }
 
 .help-title {
-  display: block;
+  display: inline-block;
   font-size: 1.15rem;
-  color: #3a2a18;
-  text-decoration: none;
+  color: #8b6f47;
+  text-decoration: underline;
+  text-underline-offset: 3px;
   margin-bottom: 0.4rem;
 }
 
 .help-title:hover {
-  color: #8b6f47;
-  text-decoration: underline;
+  color: #3a2a18;
 }
 
 .help-item p {
@@ -841,18 +841,17 @@ ul.pub-list li::before {
 
 .home-help-btn {
   display: inline-block;
-  padding: 1rem 3rem;
+  padding: 0.55rem 1.6rem;
   background-color: #8b6f47;
   color: #fff;
   font-family: inherit;
-  font-size: 1.25rem;
+  font-size: 0.95rem;
   font-weight: bold;
-  letter-spacing: 0.15em;
-  border: 3px solid #8b6f47;
-  border-radius: 4px;
+  letter-spacing: 0.1em;
+  border: 2px solid #8b6f47;
+  border-radius: 3px;
   cursor: pointer;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.18);
-  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .home-help-btn:hover {
