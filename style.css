@@ -407,6 +407,15 @@ ul.pub-list li::before {
    Chalkboard — Le Grand Menu (full programme)
    ============================================= */
 
+.chalkboard-bridge {
+  text-align: center;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: #7a6248;
+  letter-spacing: 0.04em;
+  margin: 0 auto 1.2rem;
+}
+
 .chalkboard {
   background: #1a2b1a;
   color: #e0dcc8;
