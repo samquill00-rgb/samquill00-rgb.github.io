@@ -31,6 +31,21 @@ footer {
   padding-top: 2rem;
 }
 
+.footer-options {
+  margin-top: 0.3rem;
+  font-size: 0.78rem;
+}
+
+.footer-options a {
+  color: #b09070;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+
+.footer-options a:hover {
+  color: #8b6f47;
+}
+
 h1 {
   font-size: 3.2rem;
   letter-spacing: 0.08em;
