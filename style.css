@@ -834,7 +834,8 @@ ul.pub-list li::before {
 
 /* Home page 'MAY I HELP YOU?' button */
 .home-help-link {
-  display: inline-block;
+  display: block;
+  text-align: center;
   margin-top: 1.2rem;
   text-decoration: none;
 }
