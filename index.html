@@ -9,14 +9,88 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    .password-gate {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2rem 0;
+    }
+    .password-gate h1 {
+      margin-bottom: 1.5rem;
+    }
+    .password-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 280px;
+    }
+    .password-form input[type="password"] {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1rem;
+      padding: 0.45rem 0.6rem;
+      border: 1px solid #bbb;
+      border-radius: 0;
+      background: #fafaf7;
+      color: #1a1a1a;
+      outline: none;
+      width: 100%;
+    }
+    .password-form input[type="password"]:focus {
+      border-color: #3a2a18;
+    }
+    .password-form button {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 0.95rem;
+      padding: 0.45rem 1.1rem;
+      background: #3a2a18;
+      color: #f5f0e8;
+      border: none;
+      cursor: pointer;
+      align-self: flex-start;
+      letter-spacing: 0.04em;
+    }
+    .password-form button:hover {
+      background: #c4a85a;
+      color: #1a1a1a;
+    }
+    .password-error {
+      font-size: 0.88rem;
+      color: #8b2020;
+      display: none;
+    }
+    .password-error.visible {
+      display: block;
+    }
+  </style>
 </head>
 <body>
 
-<div class="coming-soon">
+<div class="password-gate">
   <h1>SAM QUILL</h1>
-  <p class="coming-soon-sub">Site launching soon.</p>
-  <p class="coming-soon-contact">In the meantime: <a href="mailto:your@email.com">your@email.com</a></p>
+  <form class="password-form" onsubmit="checkPassword(event)">
+    <input type="password" id="pw" placeholder="Password" autocomplete="off" autofocus>
+    <span class="password-error" id="pw-error">Incorrect password.</span>
+    <button type="submit">Enter</button>
+  </form>
 </div>
+
+<script>
+  function checkPassword(e) {
+    e.preventDefault();
+    const input = document.getElementById('pw').value;
+    const error = document.getElementById('pw-error');
+    if (input === 'drquill') {
+      window.location.href = 'index-main.html';
+    } else {
+      error.classList.add('visible');
+      document.getElementById('pw').value = '';
+      document.getElementById('pw').focus();
+    }
+  }
+</script>
 
 </body>
 </html>
