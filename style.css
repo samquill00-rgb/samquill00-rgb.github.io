@@ -769,6 +769,72 @@ ul.pub-list li::before {
   color: #3a2a18;
 }
 
+/* =============================================
+   Help — Can I help you?
+   ============================================= */
+
+.help-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+}
+
+.help-item {
+  padding: 1.4rem 0;
+  border-bottom: 1px solid #d4c4a8;
+}
+
+.help-item:first-child {
+  border-top: 1px solid #d4c4a8;
+}
+
+.help-title {
+  display: block;
+  font-size: 1.15rem;
+  color: #3a2a18;
+  text-decoration: none;
+  margin-bottom: 0.4rem;
+}
+
+.help-title:hover {
+  color: #8b6f47;
+  text-decoration: underline;
+}
+
+.help-item p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #5a4a38;
+  line-height: 1.7;
+}
+
+.help-contact {
+  margin-top: 2.5rem;
+  font-style: italic;
+  color: #7a6248;
+  font-size: 0.95rem;
+}
+
+.help-contact a {
+  color: #8b6f47;
+}
+
+/* Home page 'Can I help you?' link */
+.home-help-link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-style: italic;
+  color: #8b6f47;
+  text-decoration: none;
+  font-size: 1rem;
+  border-bottom: 1px solid #c4a85a;
+  padding-bottom: 0.1rem;
+}
+
+.home-help-link:hover {
+  color: #3a2a18;
+}
+
 @media (max-width: 600px) {
   .result-grid {
     grid-template-columns: repeat(2, 1fr);
