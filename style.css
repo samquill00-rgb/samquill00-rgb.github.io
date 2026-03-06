@@ -60,6 +60,12 @@ nav {
   user-select: none;
 }
 
+.nav-dot {
+  color: #bbb;
+  margin: 0 0.15rem;
+  user-select: none;
+}
+
 nav a {
   position: relative;
   margin-right: 0.45rem;
@@ -849,4 +855,39 @@ ul.pub-list li::before {
   .music-panel {
     padding: 1.5rem 1.2rem;
   }
+}
+
+/* =============================================
+   Coming Soon
+   ============================================= */
+
+.coming-soon {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.coming-soon h1 {
+  font-size: 3.2rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.5rem;
+}
+
+.coming-soon-sub {
+  font-style: italic;
+  color: #6b5740;
+  font-size: 1.1rem;
+  margin: 0 0 0.6rem;
+}
+
+.coming-soon-contact {
+  font-size: 0.95rem;
+  color: #7a6248;
+  margin: 0;
+}
+
+.coming-soon-contact a {
+  color: #8b6f47;
 }
