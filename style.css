@@ -53,6 +53,13 @@ nav {
   overflow: visible;
 }
 
+.nav-sep {
+  color: #bbb;
+  margin: 0 0.2rem;
+  font-weight: 300;
+  user-select: none;
+}
+
 nav a {
   position: relative;
   margin-right: 0.45rem;
