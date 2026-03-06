@@ -926,6 +926,7 @@ ul.pub-list li::before {
   letter-spacing: 0.05em;
   color: #8b6f47;
   text-transform: uppercase;
+  text-align: center;
   border-bottom: 1px solid #c4a85a;
   padding-bottom: 0.3rem;
   margin-bottom: 1rem;
