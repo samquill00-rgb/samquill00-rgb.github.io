@@ -1,5 +1,6 @@
 html {
   scroll-behavior: smooth;
+  font-size: 18px;
 }
 
 body {
@@ -48,10 +49,10 @@ h3 {
 }
 
 nav a {
-  margin-right: 0.85rem;
+  margin-right: 0.7rem;
   text-decoration: none;
   color: #444;
-  font-size: 1.15rem;
+  font-size: 1.25rem;
 }
 
 nav a:hover {
