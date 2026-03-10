@@ -663,16 +663,24 @@ ul.pub-list li::before {
 }
 
 /* Home — Scholarship Scoreboard */
-.home-results {
-  margin: 2rem 0 0.5rem;
+.home-scoreboard {
+  margin: 2.5rem 0;
 }
 
-.home-results-caption {
+.home-scoreboard-title {
+  font-size: 0.8rem;
+  font-weight: normal;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8b6f47;
   text-align: center;
-  font-size: 0.85rem;
-  font-style: italic;
-  color: #7a6248;
-  margin: 0.3rem 0 2rem;
+  border-bottom: 1px solid #d4c4a8;
+  padding-bottom: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.home-results {
+  margin: 0;
 }
 
 @media (max-width: 600px) {
