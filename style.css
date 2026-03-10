@@ -621,21 +621,13 @@ ul.pub-list li::before {
    Home — Hero Section (Bio + Image)
    ============================================= */
 
-.home-hero {
-  position: relative;
-}
-
 .home-bio-box {
-  float: right;
-  width: 52%;
-  margin: 0 0 1rem 1.5rem;
   padding: 1.4rem 1.6rem;
   background: linear-gradient(135deg, #fdfbf6 0%, #f0ebe0 100%);
   border: 2px solid #b8956a;
   border-radius: 2px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-  position: relative;
-  z-index: 2;
+  margin-bottom: 2rem;
 }
 
 .home-bio-box p {
@@ -653,14 +645,6 @@ ul.pub-list li::before {
 
 .hero-image-wrap img.profile {
   margin-bottom: 0;
-}
-
-@media (max-width: 600px) {
-  .home-bio-box {
-    float: none;
-    width: 100%;
-    margin: 0 0 1.5rem 0;
-  }
 }
 
 .hero-testimonial {
