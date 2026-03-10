@@ -621,14 +621,21 @@ ul.pub-list li::before {
    Home — Hero Section (Bio + Image)
    ============================================= */
 
+#home {
+  margin-bottom: 1rem;
+}
+
 .home-bio-box {
+  display: block;
+  float: none;
+  clear: both;
   width: 100%;
   padding: 1.4rem 1.6rem;
   background: linear-gradient(135deg, #fdfbf6 0%, #f0ebe0 100%);
   border: 2px solid #b8956a;
   border-radius: 2px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   box-sizing: border-box;
 }
 
@@ -682,7 +689,7 @@ ul.pub-list li::before {
 
 /* Home — Scholarship Scoreboard */
 .home-scoreboard {
-  margin: 2.5rem 0;
+  margin: 1.5rem 0 2rem;
 }
 
 .home-scoreboard-title {
