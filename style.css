@@ -622,12 +622,14 @@ ul.pub-list li::before {
    ============================================= */
 
 .home-bio-box {
+  width: 100%;
   padding: 1.4rem 1.6rem;
   background: linear-gradient(135deg, #fdfbf6 0%, #f0ebe0 100%);
   border: 2px solid #b8956a;
   border-radius: 2px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.1);
   margin-bottom: 2rem;
+  box-sizing: border-box;
 }
 
 .home-bio-box p {
