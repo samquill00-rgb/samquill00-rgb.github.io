@@ -629,11 +629,11 @@ ul.pub-list li::before {
   float: right;
   width: 52%;
   margin: 0 0 1rem 1.5rem;
-  padding: 1.2rem 1.5rem;
-  background: linear-gradient(135deg, #fdfbf6 0%, #f5f0e6 100%);
-  border: 1px solid #d4c4a8;
+  padding: 1.4rem 1.6rem;
+  background: linear-gradient(135deg, #fdfbf6 0%, #f0ebe0 100%);
+  border: 2px solid #b8956a;
   border-radius: 2px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
   position: relative;
   z-index: 2;
 }
