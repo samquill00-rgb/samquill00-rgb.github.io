@@ -9,20 +9,148 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Modal overlay */
+    .offer-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(30, 20, 10, 0.6);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    .offer-overlay.active {
+      display: flex;
+    }
+
+    /* Modal box */
+    .offer-modal {
+      background: linear-gradient(135deg, #fdfbf6 0%, #f5f0e6 50%, #fdfbf6 100%);
+      border: 2px solid #b8956a;
+      border-radius: 2px;
+      box-shadow: 0 0 0 1px #f5f0e6, 0 0 0 3px #c9a96e, 0 0 0 4px #f5f0e6, 0 12px 48px rgba(0,0,0,0.25);
+      padding: 2.5rem 2rem 2rem;
+      max-width: 520px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      animation: modalFadeIn 0.25s ease;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Close button */
+    .offer-close {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.9rem;
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      color: #b8956a;
+      cursor: pointer;
+      font-family: 'EB Garamond', Georgia, serif;
+      line-height: 1;
+    }
+    .offer-close:hover {
+      color: #3a2a18;
+    }
+
+    /* Modal heading */
+    .offer-heading {
+      font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+      font-size: 1.1rem;
+      font-weight: normal;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #8b6f47;
+      margin: 0 0 0.3rem;
+    }
+
+    /* Ornamental divider */
+    .offer-divider {
+      color: #b8956a;
+      font-size: 0.9rem;
+      letter-spacing: 0.4em;
+      margin: 0.6rem 0 1.5rem;
+    }
+
+    /* Two-column choice */
+    .offer-choices {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+
+    .offer-choice {
+      flex: 1;
+      max-width: 200px;
+      padding: 1.8rem 1.2rem;
+      background: linear-gradient(135deg, #fdfbf6 0%, #f0ebe0 100%);
+      border: 1.5px solid #c9a96e;
+      border-radius: 2px;
+      text-decoration: none;
+      color: #3a2a18;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .offer-choice:hover {
+      background: #8b6f47;
+      border-color: #8b6f47;
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    .offer-choice:hover .offer-choice-sub {
+      color: #e0d8c8;
+    }
+
+    .offer-choice-title {
+      font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+      font-size: 1.15rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+    }
+
+    .offer-choice-sub {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 0.82rem;
+      font-style: italic;
+      color: #7a6248;
+      line-height: 1.5;
+      transition: color 0.2s ease;
+    }
+
+    @media (max-width: 480px) {
+      .offer-choices {
+        flex-direction: column;
+        align-items: center;
+      }
+      .offer-choice {
+        max-width: 260px;
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
 
 <header>
   <h1>SAM QUILL</h1>
-<nav>
-  <a href="index.html" class="active">Home</a><span class="nav-sep">|</span>
-  <a href="tutoring.html">What I Offer</a><span class="nav-dot">&middot;</span>
-  <a href="testimonials.html">Testimonials</a><span class="nav-dot">&middot;</span>
-  <a href="salon-de-conversation.html" data-tooltip="Adult education, one hour at a time">Salon de Conversation</a><span class="nav-dot">&middot;</span>
-  <a href="cv.html">C.V.</a><span class="nav-sep">|</span>
-  <a href="contact.html">Contact</a>
-</nav>
-
+  <nav>
+    <a href="index.html" class="active">Home</a><span class="nav-sep">|</span>
+    <a href="tutoring.html">What I Offer</a><span class="nav-dot">&middot;</span>
+    <a href="testimonials.html">Testimonials</a><span class="nav-dot">&middot;</span>
+    <a href="salon-de-conversation.html" data-tooltip="Adult education, one hour at a time">Salon de Conversation</a><span class="nav-dot">&middot;</span>
+    <a href="cv.html">C.V.</a><span class="nav-sep">|</span>
+    <a href="contact.html">Contact</a>
+  </nav>
 </header>
 
 <section id="home">
@@ -33,10 +161,15 @@
   <p>Sam Quill holds a First from Oxford in English, an M.Phil. from Cambridge, and a Ph.D. from Queen Mary, University of London, where he also taught. He is an Associate Fellow of the Higher Education Academy. A full-time private tutor since 2019, he specialises in scholarship examinations at major British public schools, Oxbridge entrance, A-level and GCSE tuition, personal statements and essay prizes. He also runs his &lsquo;Salon de Conversation&rsquo;, a forum for bespoke tutorial sessions for adults in literature, philosophy, theology, and history. Beyond teaching, Sam is a published poet, a musician, and a reviewer for the <em>Times Literary Supplement</em>.</p>
 </div>
 
+<!-- What I Offer button -->
+<div style="text-align: center; margin: 2rem 0 2.5rem;">
+  <button class="home-help-btn" id="offerBtn">WHAT I OFFER</button>
+</div>
+
 <div class="hero-image-wrap">
   <img src="SamCoverImage.png" alt="Sam Quill" class="profile">
   <blockquote class="hero-testimonial">
-            <p>&ldquo;Sam was the finest teacher I had. He opened up poetry and ideas for me.&rdquo;</p>
+    <p>&ldquo;Sam was the finest teacher I had. He opened up poetry and ideas for me.&rdquo;</p>
     <cite>&mdash; Sam R</cite>
   </blockquote>
 </div>
@@ -66,8 +199,52 @@
 
 <footer>
   <p>Dr. Sam Quill</p>
-
 </footer>
+
+<!-- Modal overlay -->
+<div class="offer-overlay" id="offerOverlay">
+  <div class="offer-modal">
+    <button class="offer-close" id="offerClose">&times;</button>
+    <p class="offer-heading">What I Offer</p>
+    <div class="offer-divider">&#10086; &middot; &#10086;</div>
+    <div class="offer-choices">
+      <a href="tutoring.html" class="offer-choice">
+        <span class="offer-choice-title">For Students</span>
+        <span class="offer-choice-sub">Scholarships, exams, university entrance &amp; more</span>
+      </a>
+      <a href="salon-de-conversation.html" class="offer-choice">
+        <span class="offer-choice-title">For Adults</span>
+        <span class="offer-choice-sub">Bespoke sessions in literature, philosophy &amp; history</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const btn = document.getElementById('offerBtn');
+  const overlay = document.getElementById('offerOverlay');
+  const closeBtn = document.getElementById('offerClose');
+
+  btn.addEventListener('click', function() {
+    overlay.classList.add('active');
+  });
+
+  closeBtn.addEventListener('click', function() {
+    overlay.classList.remove('active');
+  });
+
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) {
+      overlay.classList.remove('active');
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      overlay.classList.remove('active');
+    }
+  });
+</script>
 
 </body>
 </html>
