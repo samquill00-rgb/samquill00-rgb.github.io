@@ -147,7 +147,7 @@
   </div>
 
   <div style="text-align:center;margin:2.5em 0 1.5em 0;">
-    <a href="mailto:sam@samquill.com" style="display:inline-block;padding:0.5em 1.8em;border:1px solid #b8956a;border-radius:4px;background:transparent;color:#8b6f47;text-decoration:none;font-family:EB Garamond,serif;font-size:0.95em;letter-spacing:0.05em;transition:background 0.2s;">Book a session</a>
+    <a href="mailto:sam@samquill.com" class="cta-button">Book a session</a>
   </div>
 
   <!-- Le Grand Menu modal -->
@@ -156,6 +156,7 @@
     <div class="chalkboard">
     <h2 class="chalkboard-title">Le Grand Menu</h2>
     <p class="chalkboard-subtitle">52 sessions, in chronological order</p>
+    <p class="chalkboard-instruction">Tap any session to add it to your selection &mdash; build a list, then send it to Sam.</p>
     <div class="chalkboard-columns" style="display:block !important;column-count:1 !important;max-width:650px;margin:0 auto;padding:0 1.5rem;">
       <div style="margin:3.2rem 0 1.6rem 0;text-align:center;">
         <p style="font-variant:small-caps;letter-spacing:0.15em;font-size:0.85rem;color:#8b6f47;margin:0 0 0.2rem 0;font-weight:600;">Ancient &amp; Early Britain</p>
@@ -284,6 +285,12 @@
     </div>
 
     </div>
+
+    <aside class="grand-menu-basket" id="grandMenuBasket" aria-live="polite">
+      <p class="basket-title">Your Selection <span class="basket-count" id="basketCount"></span></p>
+      <ol class="basket-list" id="basketList"></ol>
+      <a class="basket-send" id="basketSend" href="#">Send to Sam <span class="arrow">&rarr;</span></a>
+    </aside>
   </div>
 
   <footer>
@@ -345,6 +352,86 @@
       });
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && grandOverlay.classList.contains('active')) closeGrand();
+      });
+
+      // Le Grand Menu — selection basket
+      const basket = [];
+      const basketEl = document.getElementById('grandMenuBasket');
+      const basketList = document.getElementById('basketList');
+      const basketCount = document.getElementById('basketCount');
+      const basketSend = document.getElementById('basketSend');
+      const chalkboardLists = document.querySelectorAll('.chalkboard-list');
+
+      function escapeHtml(s) {
+        return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+      }
+
+      function renderBasket() {
+        if (basket.length === 0) {
+          basketEl.classList.remove('active');
+          return;
+        }
+        basketEl.classList.add('active');
+        basketCount.textContent = '(' + basket.length + ')';
+        basketList.innerHTML = basket.map(item =>
+          '<li><span class="basket-item-num">' + item.num + '.</span> <span class="basket-item-text">' + escapeHtml(item.title) + '</span><button type="button" class="basket-remove" data-num="' + item.num + '" aria-label="Remove">&times;</button></li>'
+        ).join('');
+
+        const subject = 'Salon de Conversation — selected sessions';
+        const lines = [
+          'Hi Sam,',
+          '',
+          "I'd like to learn more about these sessions from Le Grand Menu:",
+          ''
+        ];
+        basket.forEach(item => lines.push('• ' + item.num + '. ' + item.title));
+        lines.push('', 'Thank you,');
+        const body = lines.join('\n');
+        basketSend.href = 'mailto:sam@samquill.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      }
+
+      function toggleSession(num, title, liEl) {
+        const idx = basket.findIndex(b => b.num === num);
+        if (idx >= 0) {
+          basket.splice(idx, 1);
+          liEl.classList.remove('selected');
+        } else {
+          basket.push({ num, title });
+          basket.sort((a, b) => a.num - b.num);
+          liEl.classList.add('selected');
+        }
+        renderBasket();
+      }
+
+      function removeFromBasket(num) {
+        const idx = basket.findIndex(b => b.num === num);
+        if (idx < 0) return;
+        basket.splice(idx, 1);
+        const target = document.querySelector('.chalkboard-list li[data-session-num="' + num + '"]');
+        if (target) target.classList.remove('selected');
+        renderBasket();
+      }
+
+      chalkboardLists.forEach(list => {
+        const start = parseInt(list.getAttribute('start') || '1', 10);
+        Array.from(list.children).forEach((li, index) => {
+          const num = start + index;
+          li.setAttribute('data-session-num', num);
+          const strong = li.querySelector('strong');
+          const title = strong ? strong.textContent.trim() : ('Session ' + num);
+          li.addEventListener('click', function(e) {
+            if (e.target.closest('a, button')) return;
+            toggleSession(num, title, li);
+          });
+        });
+      });
+
+      basketList.addEventListener('click', function(e) {
+        const btn = e.target.closest('.basket-remove');
+        if (btn) {
+          e.stopPropagation();
+          removeFromBasket(parseInt(btn.dataset.num, 10));
+        }
       });
     })();
   </script>
