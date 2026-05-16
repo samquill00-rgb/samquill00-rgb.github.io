@@ -417,11 +417,10 @@
         Array.from(list.children).forEach((li, index) => {
           const num = start + index;
           li.setAttribute('data-session-num', num);
-          const strong = li.querySelector('strong');
-          const title = strong ? strong.textContent.trim() : ('Session ' + num);
+          const fullText = li.textContent.replace(/\s+/g, ' ').trim();
           li.addEventListener('click', function(e) {
             if (e.target.closest('a, button')) return;
-            toggleSession(num, title, li);
+            toggleSession(num, fullText, li);
           });
         });
       });
