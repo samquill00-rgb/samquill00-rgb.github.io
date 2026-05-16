@@ -642,7 +642,11 @@ ul.pub-list li::before {
   font-size: 0.88rem;
   color: #4a3520;
   line-height: 1.75;
-  margin: 0;
+  margin: 0 0 0.9rem;
+}
+
+.home-bio-box p:last-child {
+  margin-bottom: 0;
 }
 
 .hero-image-wrap {
@@ -1011,29 +1015,189 @@ ul.pub-list li::before {
    Contact — Visiting Hours
    ============================================= */
 
-.contact-card {
-  max-width: 400px;
-  margin: 2rem auto;
+.contact-intro {
   text-align: center;
-  border: 1px solid #d4c4a8;
-  border-radius: 2px;
-  padding: 2rem 2.5rem;
-  background: linear-gradient(135deg, #fdfbf6 0%, #f5f0e6 100%);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-}
-
-.contact-card p {
-  font-size: 0.92rem;
+  font-style: italic;
   color: #5a4a38;
-  margin: 0.4rem 0;
+  max-width: 560px;
+  margin: 1.2rem auto 2rem;
+  font-size: 1rem;
+  line-height: 1.7;
 }
 
-.contact-card a {
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.6rem;
+  margin: 0 auto 1.5rem;
+}
+
+.contact-card {
+  background: linear-gradient(135deg, #fdfbf6 0%, #f5f0e6 50%, #fdfbf6 100%);
+  border: 2px solid #b8956a;
+  border-radius: 2px;
+  padding: 2rem 2rem 1.8rem;
+  box-shadow:
+    0 0 0 1px #f5f0e6,
+    0 0 0 4px #c9a96e,
+    0 0 0 5px #f5f0e6,
+    0 6px 22px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-card-eyebrow {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8b6f47;
+  text-align: center;
+  margin: 0 0 0.4rem;
+  font-weight: 500;
+}
+
+.contact-card-title {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #3a2a18;
+  text-align: center;
+  margin: 0 0 0.7rem;
+  font-style: italic;
+}
+
+.contact-card-sub {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 0.95rem;
+  color: #4a3520;
+  text-align: center;
+  margin: 0 0 1.4rem;
+  line-height: 1.6;
+}
+
+.contact-card-helper {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 0.85rem;
+  color: #6b5230;
+  margin: 0 0 0.5rem;
+  font-weight: 500;
+}
+
+.contact-card-list {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 0.92rem;
+  color: #4a3520;
+  line-height: 1.55;
+}
+
+.contact-card-list li {
+  padding: 0.25rem 0 0.25rem 1rem;
+  position: relative;
+}
+
+.contact-card-list li::before {
+  content: "\00B7";
+  position: absolute;
+  left: 0.2rem;
+  color: #b8956a;
+}
+
+.contact-button {
+  display: inline-block;
+  padding: 0.7em 1.6em;
+  border: 1.5px solid #8b6f47;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #a08158 0%, #8b6f47 100%);
+  color: #fdfbf6;
+  text-decoration: none;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 0.95em;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  box-shadow: 0 3px 12px rgba(139, 111, 71, 0.28);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  text-align: center;
+  margin-top: auto;
+  align-self: center;
+}
+
+.contact-button:hover {
+  background: linear-gradient(135deg, #8b6f47 0%, #6b5230 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 18px rgba(139, 111, 71, 0.38);
+  color: #fdfbf6;
+}
+
+.contact-button .arrow {
+  display: inline-block;
+  margin-left: 0.35em;
+  transition: transform 0.2s;
+}
+
+.contact-button:hover .arrow {
+  transform: translateX(3px);
+}
+
+.contact-fallback {
+  text-align: center;
+  color: #7a6248;
+  font-size: 0.85rem;
+  font-style: italic;
+  margin: 1.5rem 0 1rem;
+}
+
+.contact-fallback a {
   color: #8b6f47;
 }
 
-.contact-card a:hover {
-  color: #3a2a18;
+/* =============================================
+   Shared CTA button + Panel — used across pages
+   ============================================= */
+
+.cta-button {
+  display: inline-block;
+  padding: 0.7em 1.7em;
+  border: 1.5px solid #8b6f47;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #a08158 0%, #8b6f47 100%);
+  color: #fdfbf6;
+  text-decoration: none;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 0.95em;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  box-shadow: 0 3px 12px rgba(139, 111, 71, 0.28);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.cta-button:hover {
+  background: linear-gradient(135deg, #8b6f47 0%, #6b5230 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 18px rgba(139, 111, 71, 0.38);
+  color: #fdfbf6;
+}
+
+.panel {
+  background: linear-gradient(135deg, #fdfbf6 0%, #f5f0e6 50%, #fdfbf6 100%);
+  border: 2px solid #b8956a;
+  border-radius: 2px;
+  padding: 2.5rem 3rem;
+  margin: 2rem 0 2.5rem;
+  box-shadow:
+    0 0 0 1px #f5f0e6,
+    0 0 0 4px #c9a96e,
+    0 0 0 5px #f5f0e6,
+    0 6px 22px rgba(0,0,0,0.08);
+}
+
+@media (max-width: 600px) {
+  .panel {
+    padding: 1.6rem 1.3rem;
+  }
 }
 
 /* =============================================
@@ -1097,22 +1261,47 @@ ul.pub-list li::before {
 
 .home-help-btn {
   display: inline-block;
-  padding: 0.55rem 1.6rem;
-  background-color: rgba(139, 111, 71, 0.15);
-  color: #8b6f47;
-  font-family: inherit;
+  padding: 0.7em 2em;
+  background: linear-gradient(135deg, #a08158 0%, #8b6f47 100%);
+  color: #fdfbf6;
+  font-family: 'EB Garamond', Georgia, serif;
   font-size: 0.95rem;
-  font-weight: bold;
+  font-weight: 500;
   letter-spacing: 0.1em;
-  border: 2px solid #c4a85a;
-  border-radius: 3px;
+  border: 1.5px solid #8b6f47;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  box-shadow: 0 3px 14px rgba(139, 111, 71, 0.3);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s, color 0.2s;
 }
 
 .home-help-btn:hover {
-  background-color: #8b6f47;
-  color: #fff;
+  background: linear-gradient(135deg, #8b6f47 0%, #6b5230 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 111, 71, 0.4);
+  color: #fdfbf6;
+}
+
+.home-help-btn--link {
+  text-decoration: none;
+  text-align: center;
+}
+
+.home-cta-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 2rem 0 2.5rem;
+}
+
+.home-location {
+  text-align: left;
+  font-style: italic;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  color: #8b6f47;
+  margin: 0.4rem 0 0;
 }
 
 /* Help page sections */
