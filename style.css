@@ -1200,6 +1200,38 @@ ul.pub-list li::before {
   }
 }
 
+/* Tutoring — Individual Sessions services list with gold star markers */
+.services-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.2em 0 0;
+  columns: 2;
+  column-gap: 2em;
+}
+
+.services-list li {
+  position: relative;
+  padding-left: 1.4em;
+  margin-bottom: 0.55em;
+  color: #4a3520;
+  break-inside: avoid;
+}
+
+.services-list li::before {
+  content: "\2726";
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  color: #b8956a;
+  font-size: 0.85em;
+}
+
+@media (max-width: 600px) {
+  .services-list {
+    columns: 1;
+  }
+}
+
 /* =============================================
    Help — Can I help you?
    ============================================= */
@@ -1527,36 +1559,81 @@ ul.pub-list li::before {
 .chalkboard-instruction {
   text-align: center;
   font-style: italic;
-  font-size: 0.85rem;
-  color: #6b5230;
-  margin: -1.6rem 0 2.4rem;
+  font-size: 0.9rem;
+  color: #5a4a28;
+  margin: -1.4rem 0 2.4rem;
 }
 
-/* Le Grand Menu — clickable session items */
+.chalkboard-instruction .instruction-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 1.5px solid #8b6f47;
+  border-radius: 50%;
+  color: #8b6f47;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-style: normal;
+  vertical-align: middle;
+  margin: 0 0.1rem;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1;
+}
+
+/* Le Grand Menu — clickable session items with explicit + / ✓ affordance */
 .chalkboard-list li {
   cursor: pointer;
-  transition: background 0.15s, padding-left 0.15s;
+  position: relative;
+  padding: 0.4rem 2.4rem 0.4rem 0;
+  transition: background 0.15s;
   border-radius: 3px;
 }
 
+.chalkboard-list li::after {
+  content: "+";
+  position: absolute;
+  right: 0.4rem;
+  top: 0.5rem;
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 1.5px solid #b8956a;
+  border-radius: 50%;
+  background: #fdfbf6;
+  color: #b8956a;
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
 .chalkboard-list li:hover {
-  background: rgba(107, 82, 48, 0.08);
+  background: rgba(107, 82, 48, 0.06);
+}
+
+.chalkboard-list li:hover::after {
+  background: #c9a96e;
+  color: #fdfbf6;
+  border-color: #c9a96e;
+  transform: scale(1.08);
 }
 
 .chalkboard-list li.selected {
-  background: rgba(184, 149, 106, 0.22);
-  position: relative;
+  background: rgba(184, 149, 106, 0.18);
 }
 
 .chalkboard-list li.selected::after {
   content: "\2713";
-  position: absolute;
-  right: 0.6rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #6b5230;
+  background: #8b6f47;
+  color: #fdfbf6;
+  border-color: #8b6f47;
+  font-family: 'EB Garamond', Georgia, serif;
   font-weight: bold;
-  font-size: 1rem;
 }
 
 /* Le Grand Menu — selection basket */
