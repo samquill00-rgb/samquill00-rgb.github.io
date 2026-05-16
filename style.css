@@ -219,7 +219,7 @@ ul.pub-list li::before {
   color: #777;
   font-style: italic;
   text-align: center;
-  margin: 0 0 2rem 0;
+  margin: 0.7rem 0 2rem 0;
 }
 
 /* =============================================
@@ -881,12 +881,99 @@ ul.pub-list li::before {
   color: #3a2a18;
   line-height: 1;
   margin-bottom: 0.3rem;
+  height: 2rem;
+  overflow: hidden;
+}
+
+.result-stat .number-roll {
+  display: block;
+  transition: transform 1.3s cubic-bezier(.45, 1.4, .4, 1);
+}
+
+.result-stat .number-roll > span {
+  display: block;
+  height: 2rem;
+  line-height: 1;
+}
+
+.result-stat.rolling .number-roll {
+  transform: translateY(-2rem);
+}
+
+@keyframes flashGold {
+  0%   { background: linear-gradient(135deg, #fdfbf6 0%, #f5f0e6 100%); box-shadow: 0 0 0 rgba(201, 169, 110, 0); transform: scale(1); }
+  35%  { background: linear-gradient(135deg, #fff3c8 0%, #e6c478 100%); box-shadow: 0 0 22px rgba(201, 169, 110, 0.7); transform: scale(1.05); }
+  100% { background: linear-gradient(135deg, #fdfbf6 0%, #f5f0e6 100%); box-shadow: 0 0 0 rgba(201, 169, 110, 0); transform: scale(1); }
+}
+
+.result-stat.flashing {
+  animation: flashGold 1.8s ease-out;
 }
 
 .result-stat .school {
   font-size: 0.75rem;
   color: #7a6248;
   font-style: italic;
+}
+
+/* Home — Recent successes box (single-line, full-width) */
+.recent-success-wrap {
+  margin: 1rem 0 1.25rem;
+}
+
+.recent-success-box {
+  background: linear-gradient(135deg, #fff7e0 0%, #f5e6c0 100%);
+  border: 1.5px solid #c9a96e;
+  border-radius: 2px;
+  padding: 0.6rem 1.2rem;
+  box-shadow: 0 2px 10px rgba(184, 149, 106, 0.18);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.4rem 1rem;
+}
+
+.recent-success-title {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6b5230;
+}
+
+.recent-success-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 1.4rem;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #3a2a18;
+  font-style: italic;
+}
+
+.recent-success-list li {
+  position: relative;
+}
+
+.recent-success-list li:not(:last-child)::after {
+  content: '\00B7';
+  position: absolute;
+  right: -0.85rem;
+  top: 0;
+  color: #b8956a;
+  font-style: normal;
+}
+
+@media (max-width: 600px) {
+  .recent-success-list li:not(:last-child)::after {
+    display: none;
+  }
 }
 
 .credential-block {

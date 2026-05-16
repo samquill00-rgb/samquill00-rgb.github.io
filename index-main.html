@@ -147,54 +147,65 @@
     <a href="index.html" class="active">Home</a><span class="nav-sep">|</span>
     <a href="tutoring.html">Tutoring</a><span class="nav-dot">&middot;</span>
     <a href="testimonials.html">Testimonials</a><span class="nav-dot">&middot;</span>
-    <a href="salon-de-conversation.html" data-tooltip="Adult education, one hour at a time">Salon de Conversation</a><span class="nav-dot">&middot;</span>
     <a href="cv.html">C.V.</a><span class="nav-sep">|</span>
+    <a href="salon-de-conversation.html" data-tooltip="Adult education, one hour at a time">Salon de Conversation</a><span class="nav-sep">|</span>
     <a href="contact.html">Contact</a>
   </nav>
 </header>
 
 <section id="home">
-  <p>Dr. Sam Quill is a private tutor in English, History, Philosophy, and Critical Thinking, specialising in scholarship exams and Oxbridge entrance.</p>
+  <p>Dr. Sam Quill is a private tutor in English, History, Philosophy, and Critical Thinking, specialising in scholarship exam preparation for the major public schools, and Oxbridge entrance.</p>
 </section>
 
-<div class="home-bio-box">
-  <p>Sam Quill holds a First from Oxford in English, an M.Phil. from Cambridge, and a Ph.D. from Queen Mary, University of London, where he also taught. He is an Associate Fellow of the Higher Education Academy. A full-time private tutor since 2019, he specialises in scholarship examinations at major British public schools, Oxbridge entrance, A-level and GCSE tuition, personal statements and essay prizes. He also runs his &lsquo;Salon de Conversation&rsquo;, a forum for bespoke tutorial sessions for adults in literature, philosophy, theology, and history. Beyond teaching, Sam is a published poet, a musician, and a reviewer for the <em>Times Literary Supplement</em>.</p>
+<div class="recent-success-wrap">
+  <div class="recent-success-box">
+    <span class="recent-success-title">2026 Successes</span>
+    <ul class="recent-success-list">
+      <li>1 scholar at Westminster</li>
+      <li>1 scholar at Winchester</li>
+      <li>2 scholars at Eton</li>
+    </ul>
+  </div>
 </div>
 
-<!-- What I Offer button -->
-<div style="text-align: center; margin: 2rem 0 2.5rem;">
-  <button class="home-help-btn" id="offerBtn">WHAT I OFFER</button>
+<div class="home-scoreboard">
+  <h3 class="home-scoreboard-title">Scholarship Places Won:</h3>
+  <div class="result-grid home-results">
+    <div class="result-stat" data-from="6" data-to="7">
+      <span class="number"><span class="number-roll"><span>6</span><span>7</span></span></span>
+      <span class="school">Westminster School</span>
+    </div>
+    <div class="result-stat" data-from="4" data-to="5">
+      <span class="number"><span class="number-roll"><span>4</span><span>5</span></span></span>
+      <span class="school">Winchester College</span>
+    </div>
+    <div class="result-stat" data-from="0" data-to="2">
+      <span class="number"><span class="number-roll"><span>0</span><span>2</span></span></span>
+      <span class="school">Eton College</span>
+    </div>
+    <div class="result-stat" data-from="1" data-to="1">
+      <span class="number"><span class="number-roll"><span>1</span></span></span>
+      <span class="school">Harrow School</span>
+    </div>
+  </div>
 </div>
 
 <div class="hero-image-wrap">
   <img src="SamCoverImage.png" alt="Sam Quill" class="profile">
   <blockquote class="hero-testimonial">
-    <p>&ldquo;Sam was the finest teacher I had. He opened up poetry and ideas for me.&rdquo;</p>
+    <p>&lsquo;Sam was the finest teacher I had. He opened up poetry and ideas for me.&rsquo;</p>
     <cite>&mdash; Sam R</cite>
   </blockquote>
 </div>
 <p class="photo-credit">Photograph: Joshua Rigg</p>
 
-<div class="home-scoreboard">
-  <h3 class="home-scoreboard-title">Scholarship Places Won:</h3>
-  <div class="result-grid home-results">
-    <div class="result-stat">
-      <span class="number">6</span>
-      <span class="school">Westminster School</span>
-    </div>
-    <div class="result-stat">
-      <span class="number">4</span>
-      <span class="school">Winchester College</span>
-    </div>
-    <div class="result-stat">
-      <span class="number">1</span>
-      <span class="school">Harrow School</span>
-    </div>
-    <div class="result-stat">
-      <span class="number">1</span>
-      <span class="school">Wycombe Abbey</span>
-    </div>
-  </div>
+<div class="home-bio-box">
+  <p>Sam holds a First Class degree from Oxford in English, an M.Phil. from Cambridge, and a Ph.D. from Queen Mary, University of London, where he also taught. He is an Associate Fellow of the Higher Education Academy. A full-time private tutor since 2019, he specialises in scholarship examinations at major British public schools, Oxbridge entrance, A-level and GCSE tuition, personal statements and essay prizes. He also runs his &lsquo;Salon de Conversation&rsquo;, a forum for bespoke tutorial sessions for adults in literature, philosophy, theology, and history. Beyond teaching, Sam is a published poet, a musician, and a reviewer for the <em>Times Literary Supplement</em>.</p>
+</div>
+
+<!-- What I Offer button -->
+<div style="text-align: center; margin: 2rem 0 2.5rem;">
+  <button class="home-help-btn" id="offerBtn">WHAT I OFFER</button>
 </div>
 
 <footer>
@@ -243,6 +254,23 @@
     if (e.key === 'Escape') {
       overlay.classList.remove('active');
     }
+  });
+
+  // Scoreboard: flash gold and roll up the schools that increased this year.
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      const stats = document.querySelectorAll('.result-stat[data-from]');
+      let delay = 0;
+      stats.forEach(function(stat) {
+        const from = parseInt(stat.dataset.from, 10);
+        const to = parseInt(stat.dataset.to, 10);
+        if (from === to) return;
+        setTimeout(function() {
+          stat.classList.add('flashing', 'rolling');
+        }, delay);
+        delay += 280;
+      });
+    }, 1500);
   });
 </script>
 
