@@ -16,10 +16,69 @@
     margin: 0 auto;
     padding: 16mm 10mm;
   }
+  .site-header {
+    text-align: right;
+    color: #888;
+    font-size: 11pt;
+    margin: 0 0 6mm;
+  }
   h1 {
     font-size: 27pt;
     font-weight: bold;
+    margin: 0 0 5mm;
+  }
+  .print-btn {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 11pt;
+    color: #000;
+    background: #f4f4f4;
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 2.5mm 5mm;
     margin: 0 0 12mm;
+    cursor: pointer;
+  }
+  .print-btn:hover { background: #e8e8e8; }
+  .reveal-btn {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 11pt;
+    color: #000;
+    background: #f4f4f4;
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 2.5mm 5mm;
+    margin-top: 5mm;
+    cursor: pointer;
+  }
+  .reveal-btn:hover { background: #e8e8e8; }
+  .proof { display: none; margin-top: 6mm; }
+  .proof.shown { display: block; }
+  .proof-intro { font-size: 11pt; margin: 0 0 5mm; }
+  .stage {
+    position: relative;
+    width: 480px;
+    max-width: 100%;
+    height: 230px;
+    margin: 0 auto;
+    background: #ffffff;
+  }
+  .surround { position: absolute; top: 25px; width: 190px; height: 190px; transition: opacity .7s ease; }
+  .surroundL { left: 15px; background: #dcdcdc; }
+  .surroundR { left: 275px; background: #272727; }
+  .unit { position: absolute; top: 73px; width: 94px; transition: transform .9s ease; }
+  .unitA { left: 63px; }
+  .unitB { left: 323px; }
+  .tile { width: 94px; height: 94px; background: #787878; }
+  .lbl { text-align: center; font-size: 11pt; margin-top: 2mm; }
+  .stage.go .surround { opacity: 0; }
+  .stage.go .unitA { transform: translateX(83px); }
+  .stage.go .unitB { transform: translateX(-83px); }
+  @media print {
+    .print-btn, .reveal-btn { display: none; }
+    .proof { display: none !important; }
+    .cf-after { opacity: 1; }
+    .cap-screen { display: none; }
+    .cap-print { display: inline; }
   }
   .entry { margin: 0; }
   .entry + .entry { page-break-before: always; }
@@ -66,13 +125,26 @@
     margin: 5mm 0 0;
   }
   .filmlink a { color: #000; }
-  .pair {
+  .vanish-row {
     display: flex;
     gap: 6mm;
     align-items: flex-start;
   }
-  .pair figure { flex: 1; }
-  .pair img { max-height: 120mm; width: 100%; object-fit: contain; }
+  .v-fig { flex: 1; margin: 0; }
+  .crossfade { position: relative; }
+  .crossfade img { display: block; width: 100%; }
+  .cf-before { position: relative; }
+  .cf-after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 3.5s ease;
+  }
+  .v-toggle { cursor: pointer; }
+  .v-toggle:hover .crossfade { outline: 3px solid #c8c8c8; }
+  .v-toggle.gone .cf-after { opacity: 1; }
+  .cap-print { display: none; }
   figcaption {
     font-size: 9pt;
     color: #444;
@@ -83,7 +155,11 @@
 </head>
 <body>
 
+<div class="site-header">Dr Sam: Critical Thinking Class</div>
+
 <h1>Illusion and the Real</h1>
+
+<button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
 
 <section class="entry">
   <h2>1.&nbsp;&nbsp;The Checker-Shadow Illusion</h2>
@@ -94,6 +170,17 @@
   <figure>
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Checker_shadow_illusion.svg/1920px-Checker_shadow_illusion.svg.png" alt="Checkerboard with a green cylinder; squares A and B are the same grey.">
   </figure>
+  <button class="reveal-btn" id="revealBtn" onclick="toggleProof()">Reveal: are A and B the same colour?</button>
+  <div class="proof" id="proof">
+    <p class="proof-intro">The checkerboard plays this trick with light and shadow. Below, the same effect is stripped bare: the two tiles are the identical grey, but the left one sits on a light surround and the right one on a dark surround. Slide them together onto neutral ground, and they match.</p>
+    <div class="stage" id="stage">
+      <div class="surround surroundL"></div>
+      <div class="surround surroundR"></div>
+      <div class="unit unitA"><div class="tile"></div><div class="lbl">A</div></div>
+      <div class="unit unitB"><div class="tile"></div><div class="lbl">B</div></div>
+    </div>
+    <button class="reveal-btn" id="slideBtn" onclick="toggleSlide()">Slide A and B together</button>
+  </div>
 </section>
 
 <section class="entry">
@@ -128,17 +215,38 @@
   <h2>5.&nbsp;&nbsp;&lsquo;The Commissar Vanishes&rsquo;</h2>
   <p class="meta">April 1937&nbsp; &middot; &nbsp;Press photograph, before and after retouching&nbsp; &middot; &nbsp;Soviet Union</p>
   <p class="context">Under Stalin, officials who fell from favour were removed not only from their posts but from photographs, painted or scraped out until the record appeared never to have included them. Here Nikolai Yezhov, once head of the secret police, walks beside Stalin by the canal in the first photograph, and has been erased from the second after he himself fell from power.</p>
-  <div class="pair">
-    <figure>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/Nikolai_Yezhov_with_Stalin_and_Molotov_along_the_Volga%E2%80%93Don_Canal%2C_orignal.jpg" alt="Stalin walking by the canal with Molotov and Yezhov.">
-      <figcaption>Before: Yezhov at far right.</figcaption>
+  <div class="vanish-row">
+    <figure class="v-fig">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/Nikolai_Yezhov_with_Stalin_and_Molotov_along_the_Volga%E2%80%93Don_Canal%2C_orignal.jpg" alt="The original photograph, with Yezhov at the far right.">
+      <figcaption>The original photograph</figcaption>
     </figure>
-    <figure>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Stalin_and_Molotov_along_the_Volga%E2%80%93Don_Canal%2C_Nikolai_Yezhov_removed.jpg" alt="The same photograph with Yezhov removed.">
-      <figcaption>After: Yezhov painted out.</figcaption>
+    <figure class="v-fig v-toggle" id="vToggle" onclick="toggleVanish()">
+      <div class="crossfade">
+        <img class="cf-before" src="https://upload.wikimedia.org/wikipedia/commons/0/09/Nikolai_Yezhov_with_Stalin_and_Molotov_along_the_Volga%E2%80%93Don_Canal%2C_orignal.jpg" alt="Stalin with Yezhov standing beside him.">
+        <img class="cf-after" src="https://upload.wikimedia.org/wikipedia/commons/b/be/Stalin_and_Molotov_along_the_Volga%E2%80%93Don_Canal%2C_Nikolai_Yezhov_removed.jpg" alt="The same photograph with Yezhov removed.">
+      </div>
+      <figcaption><span class="cap-screen">Click the photograph to remove Yezhov, or to restore him</span><span class="cap-print">Retouched: Yezhov removed</span></figcaption>
     </figure>
   </div>
 </section>
+
+<script>
+function toggleProof() {
+  var p = document.getElementById('proof');
+  var b = document.getElementById('revealBtn');
+  var shown = p.classList.toggle('shown');
+  b.textContent = shown ? 'Hide' : 'Reveal: are A and B the same colour?';
+}
+function toggleSlide() {
+  var s = document.getElementById('stage');
+  var b = document.getElementById('slideBtn');
+  var go = s.classList.toggle('go');
+  b.textContent = go ? 'Move them apart again' : 'Slide A and B together';
+}
+function toggleVanish() {
+  document.getElementById('vToggle').classList.toggle('gone');
+}
+</script>
 
 </body>
 </html>
