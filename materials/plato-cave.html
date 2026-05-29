@@ -2,384 +2,75 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Plato's Cave</title>
 <style>
-  :root {
-    --bg: #f7f4ed;
-    --ink: #1a1a1a;
-    --muted: #6b6b6b;
-    --rule: #d6cfbf;
-    --visible: #b96a1f;
-    --intelligible: #2c5f7c;
-    --good: #c89a2e;
-    --stone: #2a2622;
-    --fire: #e07a2a;
-    --shadow: #0e0c0a;
-  }
-
-  * { box-sizing: border-box; }
-
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: var(--bg);
-    color: var(--ink);
+  @page { size: A4; margin: 18mm; }
+  html, body { margin: 0; padding: 0; }
+  body {
     font-family: Georgia, "Times New Roman", serif;
-    font-size: 17px;
-    line-height: 1.55;
-  }
-
-  .page {
-    max-width: 880px;
+    color: #000;
+    line-height: 1.45;
+    max-width: 175mm;
     margin: 0 auto;
-    padding: 56px 32px 96px;
+    padding: 16mm 10mm;
   }
-
-  header.lede {
-    text-align: center;
-    margin-bottom: 56px;
-    padding-bottom: 32px;
-    border-bottom: 1px solid var(--rule);
+  .site-header {
+    text-align: right;
+    color: #888;
+    font-size: 11pt;
+    margin: 0 0 6mm;
   }
-
   h1 {
-    font-size: 38px;
-    font-weight: normal;
-    margin: 0 0 8px;
-    letter-spacing: 0.5px;
+    font-size: 27pt;
+    font-weight: bold;
+    margin: 0 0 5mm;
   }
+  .lede {
+    font-size: 11.5pt;
+    margin: 0 0 8mm;
+  }
+  .print-btn {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 11pt;
+    color: #000;
+    background: #f4f4f4;
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 2.5mm 5mm;
+    margin: 0 0 12mm;
+    cursor: pointer;
+  }
+  .print-btn:hover { background: #e8e8e8; }
 
-  .subtitle {
+  .entry { margin: 0; }
+  .entry + .entry { page-break-before: always; }
+  @media screen {
+    .entry + .entry {
+      margin-top: 26mm;
+      padding-top: 26mm;
+      border-top: 1px solid #ddd;
+    }
+  }
+  h2 {
+    font-size: 15pt;
+    font-weight: bold;
+    margin: 0 0 2mm;
+  }
+  .meta {
     font-style: italic;
-    color: var(--muted);
-    font-size: 19px;
-    margin: 0 0 20px;
+    font-size: 10pt;
+    margin: 0 0 4mm;
   }
-
-  .orient {
-    color: var(--muted);
-    font-size: 15px;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  section.diagram-block {
-    margin: 72px 0;
-  }
-
-  section.diagram-block h2 {
-    font-size: 26px;
-    font-weight: normal;
-    margin: 0 0 8px;
-    letter-spacing: 0.3px;
-  }
-
-  .reference {
-    font-style: italic;
-    color: var(--muted);
-    font-size: 14px;
-    margin: 0 0 18px;
-  }
-
   .context {
-    font-size: 16px;
-    color: var(--ink);
-    margin: 0 0 28px;
-    max-width: 720px;
+    font-size: 11.5pt;
+    margin: 0 0 5mm;
   }
+  figure { margin: 5mm 0 0; }
+  figure svg { display: block; width: 100%; height: auto; max-height: 130mm; }
 
-  .diagram-frame {
-    background: #fff;
-    border: 1px solid var(--rule);
-    padding: 28px;
-    border-radius: 4px;
-  }
-
-  /* ---------- Sun analogy ---------- */
-  .sun-grid {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    gap: 0 24px;
-    align-items: stretch;
-  }
-
-  .sun-column-header {
-    text-align: center;
-    font-weight: bold;
-    font-size: 13px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 8px 0;
-    color: var(--muted);
-  }
-
-  .sun-column-header.visible-side { color: var(--visible); }
-  .sun-column-header.intelligible-side { color: var(--intelligible); }
-
-  .sun-row {
-    display: contents;
-  }
-
-  .sun-cell {
-    padding: 16px 18px;
-    border: 1px solid var(--rule);
-    border-radius: 3px;
-    background: #fdfbf6;
-    cursor: pointer;
-    transition: background 0.25s ease, border-color 0.25s ease, transform 0.15s ease;
-    text-align: center;
-  }
-
-  .sun-cell:hover { transform: translateY(-1px); }
-
-  .sun-cell .role {
-    display: block;
-    font-size: 12px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 6px;
-  }
-
-  .sun-cell .label {
-    font-size: 19px;
-    display: block;
-  }
-
-  .sun-cell .label.symbol { font-size: 28px; line-height: 1; }
-
-  .sun-cell.visible-side.active {
-    background: #fbe9d0;
-    border-color: var(--visible);
-  }
-
-  .sun-cell.intelligible-side.active {
-    background: #dbe7ef;
-    border-color: var(--intelligible);
-  }
-
-  .sun-link {
-    align-self: center;
-    width: 60px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 12px;
-    font-style: italic;
-    border-top: 1px dashed var(--rule);
-    padding: 0 8px;
-    margin: 0 -4px;
-    transition: color 0.25s ease, border-color 0.25s ease;
-  }
-
-  .sun-link.active {
-    color: var(--ink);
-    border-top-color: var(--ink);
-  }
-
-  /* ---------- Divided Line ---------- */
-  .line-layout {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 32px;
-    align-items: stretch;
-  }
-
-  .line-bar {
-    position: relative;
-    height: 460px;
-    background: #f1ebdc;
-    border: 1px solid var(--rule);
-    border-radius: 3px;
-    display: flex;
-    flex-direction: column-reverse;
-  }
-
-  /* Visible : Intelligible roughly 2:3 to suggest the unequal cut. */
-  .line-segment {
-    flex: 1;
-    border-top: 1px solid var(--rule);
-    padding: 10px 14px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    transition: background 0.25s ease;
-    position: relative;
-  }
-
-  .line-segment:first-child { border-top: none; }
-
-  .line-segment .greek {
-    font-size: 13px;
-    color: var(--muted);
-    font-style: italic;
-  }
-
-  .line-segment .name {
-    font-size: 16px;
-  }
-
-  .line-segment.visible-side { background: #fdf4e7; }
-  .line-segment.intelligible-side { background: #ecf1f5; }
-
-  .line-segment.active {
-    background: #f7d39a;
-  }
-
-  .line-segment.intelligible-side.active {
-    background: #b9d0de;
-  }
-
-  .line-divider {
-    position: absolute;
-    left: -10px;
-    right: -10px;
-    height: 2px;
-    background: var(--ink);
-    /* Positioned at 2/5 from the bottom to mark visible/intelligible split. */
-    bottom: 40%;
-    pointer-events: none;
-  }
-
-  .line-divider::before {
-    content: "visible · intelligible";
-    position: absolute;
-    right: -8px;
-    top: -22px;
-    font-size: 11px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--muted);
-    background: var(--bg);
-    padding: 0 6px;
-  }
-
-  .line-panel {
-    background: #fdfbf6;
-    border: 1px solid var(--rule);
-    border-radius: 3px;
-    padding: 20px 24px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .line-panel .panel-greek {
-    font-style: italic;
-    color: var(--muted);
-    font-size: 15px;
-    margin: 0;
-  }
-
-  .line-panel .panel-title {
-    font-size: 22px;
-    margin: 4px 0 14px;
-  }
-
-  .line-panel .panel-meta {
-    display: grid;
-    grid-template-columns: 110px 1fr;
-    gap: 8px 14px;
-    font-size: 15px;
-  }
-
-  .line-panel .panel-meta dt {
-    font-weight: bold;
-    color: var(--muted);
-    font-size: 13px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-  }
-
-  .line-panel .panel-meta dd { margin: 0; }
-
-  .line-controls {
-    margin-top: 18px;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    font-size: 14px;
-  }
-
-  /* ---------- Cave ---------- */
-  .cave-stage {
-    position: relative;
-    background: #1a1612;
-    border-radius: 3px;
-    overflow: hidden;
-  }
-
-  .cave-stage svg {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .cave-caption {
-    margin-top: 18px;
-    font-size: 15px;
-    color: var(--ink);
-    min-height: 60px;
-  }
-
-  .cave-caption .step-label {
-    display: block;
-    font-size: 12px;
-    color: var(--muted);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-
-  .cave-controls {
-    margin-top: 14px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  /* ---------- Buttons ---------- */
-  button {
-    font-family: Georgia, serif;
-    font-size: 14px;
-    background: #fff;
-    color: var(--ink);
-    border: 1px solid var(--ink);
-    padding: 8px 16px;
-    cursor: pointer;
-    border-radius: 2px;
-    transition: background 0.15s ease, color 0.15s ease;
-  }
-
-  button:hover { background: var(--ink); color: #fff; }
-  button:disabled {
-    color: var(--muted);
-    border-color: var(--rule);
-    cursor: not-allowed;
-    background: #fff;
-  }
-
-  .step-indicator {
-    font-size: 13px;
-    color: var(--muted);
-    letter-spacing: 1px;
-  }
-
-  footer.colophon {
-    margin-top: 80px;
-    padding-top: 24px;
-    border-top: 1px solid var(--rule);
-    text-align: center;
-    font-size: 13px;
-    color: var(--muted);
-  }
-
-  /* ---------- Cave SVG state classes ---------- */
-  .cave-layer { transition: opacity 0.5s ease; }
-  .cave-layer.dim { opacity: 0.22; }
-  .cave-layer.hidden { opacity: 0; }
-
-  /* ---------- Sun SVG hover ---------- */
+  /* Sun analogy hover behaviour */
   #sun-svg [data-row] {
     transition: opacity 0.2s ease, filter 0.2s ease;
     cursor: pointer;
@@ -387,556 +78,508 @@
   #sun-svg [data-row].row-dim { opacity: 0.3; }
   #sun-svg [data-row].row-active { filter: drop-shadow(0 0 4px rgba(0,0,0,0.25)); }
 
-  @media (max-width: 700px) {
-    .sun-grid { grid-template-columns: 1fr; }
-    .sun-link { display: none; }
-    .line-layout { grid-template-columns: 1fr; }
-    .line-bar { height: 360px; }
+  /* Cave scene */
+  .cave-stage {
+    background: #1a1612;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .cave-stage svg { display: block; width: 100%; height: auto; max-height: 140mm; }
+  .cave-layer { transition: opacity 0.5s ease; }
+  .cave-layer.dim { opacity: 0.22; }
+
+  .caption {
+    font-size: 11pt;
+    margin: 4mm 0 3mm;
+    min-height: 16mm;
+  }
+  .caption .step-label {
+    display: block;
+    font-size: 9pt;
+    color: #888;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 1.5mm;
+  }
+
+  .step-controls {
+    display: flex;
+    align-items: center;
+    gap: 3mm;
+    margin: 3mm 0;
+  }
+  .step-btn {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 11pt;
+    color: #000;
+    background: #f4f4f4;
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 2mm 4mm;
+    cursor: pointer;
+  }
+  .step-btn:hover { background: #e8e8e8; }
+  .step-btn:disabled { color: #aaa; cursor: not-allowed; background: #f4f4f4; }
+  .step-indicator {
+    font-size: 10pt;
+    color: #888;
+    letter-spacing: 1px;
+  }
+
+  @media print {
+    .print-btn, .step-controls { display: none; }
   }
 </style>
 </head>
 <body>
-<div class="page">
 
-  <header class="lede">
-    <h1>Plato's Cave</h1>
-    <p class="orient">From Plato's Republic (c. 375 BCE). Socrates uses two connected images, the sun and the cave, to describe the philosopher's education and the world the philosopher comes to know.</p>
-  </header>
+<div class="site-header">Dr Sam: Philosophy Class</div>
 
-  <!-- ============ THE SUN ============ -->
-  <section class="diagram-block" id="sun">
-    <h2>The Sun</h2>
-    <p class="reference">Republic VI, 506d–509c</p>
-    <p class="context">Asked to define the Good, Socrates declines and offers only an analogy. Sight requires three things: a healthy eye, something to see, and a third element — light — whose source is the sun. The Good plays the same role in the intelligible world: it is the source from which truth flows, and truth is what makes it possible for the mind to know the Forms. Hover any part of the diagram to highlight its parallel on the other side.</p>
+<h1>Plato's Cave</h1>
 
-    <div class="diagram-frame">
-      <svg id="sun-svg" viewBox="0 0 800 460" preserveAspectRatio="xMidYMid meet" aria-label="The Sun analogy">
+<p class="lede">From Plato's Republic (c. 375 BCE). Socrates uses two connected images, the sun and the cave, to describe the philosopher's education and the world the philosopher comes to know.</p>
 
-        <defs>
-          <linearGradient id="lightCone" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#fde4b2" stop-opacity="0.9"/>
-            <stop offset="1" stop-color="#fde4b2" stop-opacity="0"/>
-          </linearGradient>
-          <linearGradient id="truthCone" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#e8d691" stop-opacity="0.9"/>
-            <stop offset="1" stop-color="#e8d691" stop-opacity="0"/>
-          </linearGradient>
-          <marker id="arrowVisible" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#b96a1f"/>
-          </marker>
-          <marker id="arrowIntelligible" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#2c5f7c"/>
-          </marker>
-        </defs>
+<button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
 
-        <!-- Column headers -->
-        <text x="180" y="28" text-anchor="middle" fill="#b96a1f" font-family="Georgia" font-size="12" letter-spacing="3" font-weight="bold">VISIBLE</text>
-        <text x="620" y="28" text-anchor="middle" fill="#2c5f7c" font-family="Georgia" font-size="12" letter-spacing="3" font-weight="bold">INTELLIGIBLE</text>
+<section class="entry">
+  <h2>1.&nbsp;&nbsp;The Sun</h2>
+  <p class="meta">Republic VI, 506d&ndash;509c</p>
+  <p class="context">Asked to define the Good, Socrates declines and offers only an analogy. Sight requires three things: a healthy eye, something to see, and a third element &ndash; light &ndash; whose source is the sun. The Good plays the same role in the intelligible world: it is the source from which truth flows, and truth is what makes it possible for the mind to know the Forms. Hover any part of the diagram to highlight its parallel on the other side.</p>
 
-        <!-- Centre divider -->
-        <line x1="400" y1="50" x2="400" y2="440" stroke="#d6cfbf" stroke-width="1" stroke-dasharray="3,3"/>
+  <figure>
+    <svg id="sun-svg" viewBox="0 0 800 460" preserveAspectRatio="xMidYMid meet" aria-label="The Sun analogy">
 
-        <!-- Row labels -->
-        <text x="400" y="94" text-anchor="middle" fill="#999" font-family="Georgia" font-size="10" letter-spacing="2">SOURCE</text>
-        <text x="400" y="200" text-anchor="middle" fill="#999" font-family="Georgia" font-size="10" letter-spacing="2">MEDIUM</text>
-        <text x="400" y="340" text-anchor="middle" fill="#999" font-family="Georgia" font-size="10" letter-spacing="2">SEEING / KNOWING</text>
+      <defs>
+        <linearGradient id="lightCone" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#fde4b2" stop-opacity="0.9"/>
+          <stop offset="1" stop-color="#fde4b2" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="truthCone" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#e8d691" stop-opacity="0.9"/>
+          <stop offset="1" stop-color="#e8d691" stop-opacity="0"/>
+        </linearGradient>
+        <marker id="arrowVisible" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#b96a1f"/>
+        </marker>
+        <marker id="arrowIntelligible" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#2c5f7c"/>
+        </marker>
+      </defs>
 
-        <!-- ============ VISIBLE side ============ -->
+      <text x="180" y="28" text-anchor="middle" fill="#b96a1f" font-family="Georgia" font-size="12" letter-spacing="3" font-weight="bold">VISIBLE</text>
+      <text x="620" y="28" text-anchor="middle" fill="#2c5f7c" font-family="Georgia" font-size="12" letter-spacing="3" font-weight="bold">INTELLIGIBLE</text>
 
-        <!-- Light cone -->
-        <g data-row="medium">
-          <path d="M 180 110 L 30 280 L 330 280 Z" fill="url(#lightCone)"/>
-          <text x="180" y="210" text-anchor="middle" fill="#7a4a14" font-family="Georgia" font-size="14" font-style="italic">light</text>
+      <line x1="400" y1="50" x2="400" y2="440" stroke="#d6cfbf" stroke-width="1" stroke-dasharray="3,3"/>
+
+      <text x="400" y="94" text-anchor="middle" fill="#999" font-family="Georgia" font-size="10" letter-spacing="2">SOURCE</text>
+      <text x="400" y="200" text-anchor="middle" fill="#999" font-family="Georgia" font-size="10" letter-spacing="2">MEDIUM</text>
+      <text x="400" y="340" text-anchor="middle" fill="#999" font-family="Georgia" font-size="10" letter-spacing="2">SEEING / KNOWING</text>
+
+      <!-- Visible side -->
+      <g data-row="medium">
+        <path d="M 180 110 L 30 280 L 330 280 Z" fill="url(#lightCone)"/>
+        <text x="180" y="210" text-anchor="middle" fill="#7a4a14" font-family="Georgia" font-size="14" font-style="italic">light</text>
+      </g>
+
+      <g data-row="source">
+        <circle cx="180" cy="90" r="22" fill="#f4c43a"/>
+        <g stroke="#f4c43a" stroke-width="2.5" stroke-linecap="round">
+          <line x1="180" y1="50" x2="180" y2="58"/>
+          <line x1="180" y1="122" x2="180" y2="130"/>
+          <line x1="140" y1="90" x2="148" y2="90"/>
+          <line x1="212" y1="90" x2="220" y2="90"/>
+          <line x1="151" y1="61" x2="156" y2="66"/>
+          <line x1="204" y1="66" x2="209" y2="61"/>
+          <line x1="151" y1="119" x2="156" y2="114"/>
+          <line x1="204" y1="114" x2="209" y2="119"/>
         </g>
+        <text x="180" y="158" text-anchor="middle" fill="#7a4a14" font-family="Georgia" font-size="13">the Sun</text>
+      </g>
 
-        <!-- Sun -->
-        <g data-row="source">
-          <circle cx="180" cy="90" r="22" fill="#f4c43a"/>
-          <g stroke="#f4c43a" stroke-width="2.5" stroke-linecap="round">
-            <line x1="180" y1="50" x2="180" y2="58"/>
-            <line x1="180" y1="122" x2="180" y2="130"/>
-            <line x1="140" y1="90" x2="148" y2="90"/>
-            <line x1="212" y1="90" x2="220" y2="90"/>
-            <line x1="151" y1="61" x2="156" y2="66"/>
-            <line x1="204" y1="66" x2="209" y2="61"/>
-            <line x1="151" y1="119" x2="156" y2="114"/>
-            <line x1="204" y1="114" x2="209" y2="119"/>
-          </g>
-          <text x="180" y="158" text-anchor="middle" fill="#7a4a14" font-family="Georgia" font-size="13">the Sun</text>
+      <g data-row="faculty">
+        <g transform="translate(90, 320)">
+          <ellipse cx="0" cy="0" rx="30" ry="18" fill="#fff" stroke="#7a4a14" stroke-width="2"/>
+          <circle cx="0" cy="0" r="11" fill="#7a4a14"/>
+          <circle cx="-3" cy="-3" r="3" fill="#fff"/>
         </g>
+        <text x="90" y="380" text-anchor="middle" fill="#7a4a14" font-family="Georgia" font-size="13">the eye</text>
+      </g>
 
-        <!-- Eye -->
-        <g data-row="faculty">
-          <g transform="translate(90, 320)">
-            <ellipse cx="0" cy="0" rx="30" ry="18" fill="#fff" stroke="#7a4a14" stroke-width="2"/>
-            <circle cx="0" cy="0" r="11" fill="#7a4a14"/>
-            <circle cx="-3" cy="-3" r="3" fill="#fff"/>
-          </g>
-          <text x="90" y="380" text-anchor="middle" fill="#7a4a14" font-family="Georgia" font-size="13">the eye</text>
+      <g data-row="object">
+        <g transform="translate(290, 320)">
+          <ellipse cx="0" cy="-8" rx="24" ry="20" fill="#7c9b6b"/>
+          <rect x="-4" y="8" width="8" height="14" fill="#5a4a30"/>
         </g>
+        <text x="290" y="380" text-anchor="middle" fill="#7a4a14" font-family="Georgia" font-size="13">things seen</text>
+      </g>
 
-        <!-- Things seen -->
-        <g data-row="object">
-          <g transform="translate(290, 320)">
-            <ellipse cx="0" cy="-8" rx="24" ry="20" fill="#7c9b6b"/>
-            <rect x="-4" y="8" width="8" height="14" fill="#5a4a30"/>
-          </g>
-          <text x="290" y="380" text-anchor="middle" fill="#7a4a14" font-family="Georgia" font-size="13">things seen</text>
+      <g data-row="relation">
+        <path d="M 124 320 Q 190 286 256 320" fill="none" stroke="#b96a1f" stroke-width="1.8" marker-end="url(#arrowVisible)"/>
+        <text x="190" y="290" text-anchor="middle" fill="#b96a1f" font-family="Georgia" font-size="11" font-style="italic">sees</text>
+      </g>
+
+      <!-- Intelligible side -->
+      <g data-row="medium">
+        <path d="M 620 110 L 470 280 L 770 280 Z" fill="url(#truthCone)"/>
+        <text x="620" y="210" text-anchor="middle" fill="#1a3c4f" font-family="Georgia" font-size="14" font-style="italic">truth</text>
+      </g>
+
+      <g data-row="source">
+        <circle cx="620" cy="90" r="22" fill="#c89a2e"/>
+        <g stroke="#c89a2e" stroke-width="2.5" stroke-linecap="round">
+          <line x1="620" y1="50" x2="620" y2="58"/>
+          <line x1="620" y1="122" x2="620" y2="130"/>
+          <line x1="580" y1="90" x2="588" y2="90"/>
+          <line x1="652" y1="90" x2="660" y2="90"/>
+          <line x1="591" y1="61" x2="596" y2="66"/>
+          <line x1="644" y1="66" x2="649" y2="61"/>
+          <line x1="591" y1="119" x2="596" y2="114"/>
+          <line x1="644" y1="114" x2="649" y2="119"/>
         </g>
+        <text x="620" y="158" text-anchor="middle" fill="#1a3c4f" font-family="Georgia" font-size="13">the Good</text>
+      </g>
 
-        <!-- Eye → Things arrow -->
-        <g data-row="relation">
-          <path d="M 124 320 Q 190 286 256 320" fill="none" stroke="#b96a1f" stroke-width="1.8" marker-end="url(#arrowVisible)"/>
-          <text x="190" y="290" text-anchor="middle" fill="#b96a1f" font-family="Georgia" font-size="11" font-style="italic">sees</text>
+      <g data-row="faculty">
+        <g transform="translate(530, 320)" stroke="#1a3c4f" stroke-width="1.5" fill="#bdd5e0">
+          <path d="M -24 30 Q -24 14 -10 12 L 10 12 Q 24 14 24 30 Z"/>
+          <rect x="-5" y="3" width="10" height="10"/>
+          <ellipse cx="0" cy="-9" rx="14" ry="16"/>
+          <circle cx="-5" cy="-11" r="1.8" fill="#1a3c4f" stroke="none"/>
+          <circle cx="5" cy="-11" r="1.8" fill="#1a3c4f" stroke="none"/>
+          <line x1="-9" y1="-16" x2="-2" y2="-16" stroke="#1a3c4f" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="2" y1="-16" x2="9" y2="-16" stroke="#1a3c4f" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M 0 -8 L 2 -2 L 0 0" fill="none" stroke="#1a3c4f" stroke-width="1"/>
+          <path d="M -4 4 Q 0 6 4 4" fill="none" stroke="#1a3c4f" stroke-width="1.2"/>
         </g>
+        <text x="530" y="390" text-anchor="middle" fill="#1a3c4f" font-family="Georgia" font-size="13">the intellect</text>
+      </g>
 
-        <!-- ============ INTELLIGIBLE side ============ -->
-
-        <!-- Truth cone -->
-        <g data-row="medium">
-          <path d="M 620 110 L 470 280 L 770 280 Z" fill="url(#truthCone)"/>
-          <text x="620" y="210" text-anchor="middle" fill="#1a3c4f" font-family="Georgia" font-size="14" font-style="italic">truth</text>
+      <g data-row="object">
+        <g transform="translate(720, 320)" fill="none" stroke="#1a3c4f" stroke-width="1.5">
+          <circle cx="-12" cy="0" r="11"/>
+          <polygon points="4,-12 16,8 -8,8"/>
         </g>
+        <text x="720" y="380" text-anchor="middle" fill="#1a3c4f" font-family="Georgia" font-size="13">the Forms</text>
+      </g>
 
-        <!-- The Good -->
-        <g data-row="source">
-          <circle cx="620" cy="90" r="22" fill="#c89a2e"/>
-          <g stroke="#c89a2e" stroke-width="2.5" stroke-linecap="round">
-            <line x1="620" y1="50" x2="620" y2="58"/>
-            <line x1="620" y1="122" x2="620" y2="130"/>
-            <line x1="580" y1="90" x2="588" y2="90"/>
-            <line x1="652" y1="90" x2="660" y2="90"/>
-            <line x1="591" y1="61" x2="596" y2="66"/>
-            <line x1="644" y1="66" x2="649" y2="61"/>
-            <line x1="591" y1="119" x2="596" y2="114"/>
-            <line x1="644" y1="114" x2="649" y2="119"/>
-          </g>
-          <text x="620" y="158" text-anchor="middle" fill="#1a3c4f" font-family="Georgia" font-size="13">the Good</text>
+      <g data-row="relation">
+        <path d="M 564 320 Q 630 286 690 320" fill="none" stroke="#2c5f7c" stroke-width="1.8" marker-end="url(#arrowIntelligible)"/>
+        <text x="630" y="290" text-anchor="middle" fill="#2c5f7c" font-family="Georgia" font-size="11" font-style="italic">knows</text>
+      </g>
+
+    </svg>
+  </figure>
+</section>
+
+<section class="entry">
+  <h2>2.&nbsp;&nbsp;The Cave</h2>
+  <p class="meta">Republic VII, 514a&ndash;517a</p>
+  <p class="context">Prisoners chained since childhood face the back wall of a cave. Behind them a fire burns; between fire and prisoners runs a low parapet along which puppeteers carry figures of men, animals and artefacts. The prisoners see only the shadows the figures throw on the wall and take these for reality. The story that follows traces what happens when one prisoner is released.</p>
+
+  <div class="cave-stage">
+    <svg viewBox="0 0 800 360" preserveAspectRatio="xMidYMid meet" aria-label="Plato's cave diagram">
+
+      <defs>
+        <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stop-color="#bcd8e8"/>
+          <stop offset="1" stop-color="#f0e6c8"/>
+        </linearGradient>
+        <radialGradient id="fireGlow" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0" stop-color="#ffb066" stop-opacity="0.9"/>
+          <stop offset="1" stop-color="#e07a2a" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="sunGlow" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0" stop-color="#fff0c8" stop-opacity="1"/>
+          <stop offset="0.4" stop-color="#f4c43a" stop-opacity="0.85"/>
+          <stop offset="1" stop-color="#f4c43a" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="caveFloor" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stop-color="#3a3128"/>
+          <stop offset="1" stop-color="#241e18"/>
+        </linearGradient>
+      </defs>
+
+      <g class="cave-layer" id="layer-outside" style="opacity:0">
+        <rect x="540" y="0" width="260" height="240" fill="url(#sky)"/>
+        <polygon points="540,240 575,180 612,210 650,158 692,202 738,170 800,215 800,240" fill="#9aa3b2" opacity="0.65"/>
+        <polygon points="540,240 580,212 618,228 660,200 700,222 740,208 800,234 800,240" fill="#8e9b86" opacity="0.85"/>
+        <rect x="540" y="240" width="260" height="120" fill="#8a9b6c"/>
+        <g stroke="#6e8052" stroke-width="0.7" opacity="0.6">
+          <line x1="556" y1="252" x2="558" y2="248"/>
+          <line x1="572" y1="258" x2="574" y2="254"/>
+          <line x1="592" y1="264" x2="594" y2="260"/>
+          <line x1="616" y1="272" x2="618" y2="268"/>
+          <line x1="640" y1="280" x2="642" y2="276"/>
+          <line x1="672" y1="292" x2="674" y2="288"/>
+          <line x1="700" y1="298" x2="702" y2="294"/>
+          <line x1="740" y1="308" x2="742" y2="304"/>
         </g>
-
-        <!-- Intellect (bust + face) -->
-        <g data-row="faculty">
-          <g transform="translate(530, 320)" stroke="#1a3c4f" stroke-width="1.5" fill="#bdd5e0">
-            <!-- Shoulders -->
-            <path d="M -24 30 Q -24 14 -10 12 L 10 12 Q 24 14 24 30 Z"/>
-            <!-- Neck -->
-            <rect x="-5" y="3" width="10" height="10"/>
-            <!-- Head -->
-            <ellipse cx="0" cy="-9" rx="14" ry="16"/>
-            <!-- Eyes -->
-            <circle cx="-5" cy="-11" r="1.8" fill="#1a3c4f" stroke="none"/>
-            <circle cx="5" cy="-11" r="1.8" fill="#1a3c4f" stroke="none"/>
-            <!-- Brows -->
-            <line x1="-9" y1="-16" x2="-2" y2="-16" stroke="#1a3c4f" stroke-width="1.2" stroke-linecap="round"/>
-            <line x1="2" y1="-16" x2="9" y2="-16" stroke="#1a3c4f" stroke-width="1.2" stroke-linecap="round"/>
-            <!-- Nose -->
-            <path d="M 0 -8 L 2 -2 L 0 0" fill="none" stroke="#1a3c4f" stroke-width="1"/>
-            <!-- Mouth -->
-            <path d="M -4 4 Q 0 6 4 4" fill="none" stroke="#1a3c4f" stroke-width="1.2"/>
-          </g>
-          <text x="530" y="390" text-anchor="middle" fill="#1a3c4f" font-family="Georgia" font-size="13">the intellect</text>
+        <g fill="#fff" opacity="0.85">
+          <ellipse cx="600" cy="58" rx="22" ry="8"/>
+          <ellipse cx="612" cy="54" rx="14" ry="7"/>
+          <ellipse cx="588" cy="56" rx="10" ry="5"/>
         </g>
-
-        <!-- Forms -->
-        <g data-row="object">
-          <g transform="translate(720, 320)" fill="none" stroke="#1a3c4f" stroke-width="1.5">
-            <circle cx="-12" cy="0" r="11"/>
-            <polygon points="4,-12 16,8 -8,8"/>
-          </g>
-          <text x="720" y="380" text-anchor="middle" fill="#1a3c4f" font-family="Georgia" font-size="13">the Forms</text>
+        <g stroke="#f4c43a" stroke-width="2" stroke-linecap="round" opacity="0.7">
+          <line x1="720" y1="14" x2="720" y2="28"/>
+          <line x1="720" y1="112" x2="720" y2="126"/>
+          <line x1="664" y1="70" x2="678" y2="70"/>
+          <line x1="762" y1="70" x2="776" y2="70"/>
+          <line x1="678" y1="28" x2="688" y2="38"/>
+          <line x1="752" y1="38" x2="762" y2="28"/>
+          <line x1="678" y1="112" x2="688" y2="102"/>
+          <line x1="752" y1="102" x2="762" y2="112"/>
         </g>
-
-        <!-- Intellect → Forms arrow -->
-        <g data-row="relation">
-          <path d="M 564 320 Q 630 286 690 320" fill="none" stroke="#2c5f7c" stroke-width="1.8" marker-end="url(#arrowIntelligible)"/>
-          <text x="630" y="290" text-anchor="middle" fill="#2c5f7c" font-family="Georgia" font-size="11" font-style="italic">knows</text>
+        <circle cx="720" cy="70" r="55" fill="url(#sunGlow)"/>
+        <circle cx="720" cy="70" r="22" fill="#f4c43a"/>
+        <g>
+          <ellipse cx="598" cy="228" rx="20" ry="28" fill="#4d6a3d"/>
+          <rect x="595" y="246" width="6" height="22" fill="#5a4a30"/>
+          <ellipse cx="652" cy="240" rx="14" ry="20" fill="#5a7a48"/>
+          <rect x="650" y="254" width="4" height="14" fill="#5a4a30"/>
+          <ellipse cx="765" cy="246" rx="18" ry="24" fill="#4d6a3d"/>
+          <rect x="762" y="262" width="6" height="18" fill="#5a4a30"/>
         </g>
+        <path d="M 540 296 Q 600 300 660 308 Q 700 316 740 322" stroke="#cab298" stroke-width="6" fill="none" opacity="0.75" stroke-linecap="round"/>
+        <ellipse cx="680" cy="332" rx="52" ry="6" fill="#cfdce5" opacity="0.55"/>
+      </g>
 
-      </svg>
-    </div>
-  </section>
+      <g class="cave-layer" id="layer-cave-walls">
+        <path d="M 0 360 L 0 40 Q 20 20 60 30 L 80 60 Q 100 50 130 80 L 160 60 Q 180 90 220 70 L 540 70 L 540 360 Z" fill="#2a2622"/>
+        <rect x="0" y="280" width="540" height="80" fill="url(#caveFloor)"/>
+        <g stroke="#1a1612" stroke-width="0.6" opacity="0.7">
+          <path d="M 60 320 Q 80 322 110 318"/>
+          <path d="M 200 340 Q 240 342 280 338"/>
+          <path d="M 380 326 Q 420 328 460 322"/>
+        </g>
+        <g fill="#1a1612">
+          <polygon points="80,40 88,40 84,68"/>
+          <polygon points="172,62 180,62 176,86"/>
+          <polygon points="240,72 246,72 243,90"/>
+          <polygon points="318,72 326,72 322,96"/>
+          <polygon points="400,72 406,72 403,88"/>
+          <polygon points="468,72 476,72 472,92"/>
+        </g>
+        <g fill="#1a1612">
+          <polygon points="22,360 32,360 27,328"/>
+          <polygon points="124,360 132,360 128,338"/>
+          <polygon points="356,360 364,360 360,332"/>
+          <polygon points="460,360 466,360 463,344"/>
+        </g>
+        <path d="M 480 220 L 600 120 L 600 60 L 480 60 Z" fill="#1a1612"/>
+        <path d="M 540 70 L 600 60 L 600 120 L 540 220 Z" fill="#221d18"/>
+        <path d="M 482 220 L 492 214 L 504 222 L 516 214 L 528 220 L 540 213" stroke="#1a1612" stroke-width="1.2" fill="none"/>
+      </g>
 
-  <!-- ============ THE CAVE ============ -->
-  <section class="diagram-block" id="cave">
-    <h2>The Cave</h2>
-    <p class="reference">Republic VII, 514a–517a</p>
-    <p class="context">Prisoners chained since childhood face the back wall of a cave. Behind them a fire burns; between fire and prisoners runs a low parapet along which puppeteers carry figures of men, animals and artefacts. The prisoners see only the shadows the figures throw on the wall and take these for reality. The story that follows traces what happens when one prisoner is released.</p>
+      <g class="cave-layer" id="layer-wall">
+        <rect x="10" y="80" width="120" height="200" fill="#4a3f33"/>
+        <g stroke="#352c24" stroke-width="0.6" opacity="0.55">
+          <line x1="10" y1="116" x2="130" y2="120"/>
+          <line x1="10" y1="156" x2="130" y2="159"/>
+          <line x1="10" y1="200" x2="130" y2="202"/>
+          <line x1="10" y1="240" x2="130" y2="242"/>
+          <line x1="48" y1="80" x2="46" y2="280"/>
+          <line x1="94" y1="80" x2="96" y2="280"/>
+        </g>
+        <text x="70" y="100" text-anchor="middle" font-family="Georgia" font-size="9" fill="#9b8f7c" font-style="italic">shadow wall</text>
+      </g>
 
-    <div class="diagram-frame">
-      <div class="cave-stage">
-        <svg viewBox="0 0 800 360" preserveAspectRatio="xMidYMid meet" aria-label="Plato's cave diagram">
+      <g class="cave-layer" id="layer-shadows">
+        <g fill="#0e0c0a">
+          <circle cx="42" cy="178" r="7"/>
+          <rect x="36" y="185" width="12" height="22" rx="1"/>
+          <rect x="40" y="166" width="4" height="22" transform="rotate(35 42 177)" rx="1"/>
+          <rect x="33" y="188" width="3" height="16" transform="rotate(-10 34 196)" rx="1"/>
+          <rect x="36" y="206" width="4" height="24" rx="1"/>
+          <rect x="42" y="206" width="4" height="24" rx="1"/>
+        </g>
+        <g fill="#0e0c0a">
+          <ellipse cx="100" cy="206" rx="16" ry="8"/>
+          <ellipse cx="116" cy="202" rx="6" ry="5"/>
+          <polygon points="115,199 118,193 121,200"/>
+          <path d="M 84 204 q -8 -2 -8 -12" stroke="#0e0c0a" stroke-width="2.5" fill="none"/>
+          <rect x="89" y="212" width="3" height="14" rx="1"/>
+          <rect x="96" y="212" width="3" height="14" rx="1"/>
+          <rect x="105" y="212" width="3" height="14" rx="1"/>
+          <rect x="112" y="212" width="3" height="14" rx="1"/>
+        </g>
+      </g>
 
-          <defs>
-            <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0" stop-color="#bcd8e8"/>
-              <stop offset="1" stop-color="#f0e6c8"/>
-            </linearGradient>
-            <radialGradient id="fireGlow" cx="0.5" cy="0.5" r="0.5">
-              <stop offset="0" stop-color="#ffb066" stop-opacity="0.9"/>
-              <stop offset="1" stop-color="#e07a2a" stop-opacity="0"/>
-            </radialGradient>
-            <radialGradient id="sunGlow" cx="0.5" cy="0.5" r="0.5">
-              <stop offset="0" stop-color="#fff0c8" stop-opacity="1"/>
-              <stop offset="0.4" stop-color="#f4c43a" stop-opacity="0.85"/>
-              <stop offset="1" stop-color="#f4c43a" stop-opacity="0"/>
-            </radialGradient>
-            <linearGradient id="caveFloor" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0" stop-color="#3a3128"/>
-              <stop offset="1" stop-color="#241e18"/>
-            </linearGradient>
-          </defs>
+      <g class="cave-layer" id="layer-prisoners">
+        <g fill="none" stroke="#5a4a36" stroke-width="2">
+          <circle cx="180" cy="262" r="3"/>
+          <circle cx="230" cy="262" r="3"/>
+          <circle cx="280" cy="262" r="3"/>
+        </g>
+        <g transform="translate(180,200)">
+          <line x1="-2" y1="0" x2="-2" y2="60" stroke="#7a6852" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <rect x="-9" y="9" width="18" height="28" fill="#7a6852" rx="2"/>
+          <line x1="-9" y1="16" x2="-20" y2="22" stroke="#7a6852" stroke-width="3" stroke-linecap="round"/>
+          <line x1="9" y1="16" x2="20" y2="22" stroke="#7a6852" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="0" cy="0" r="10" fill="#6b5a48"/>
+          <rect x="-8" y="6" width="16" height="4" fill="#3a3028" rx="1"/>
+        </g>
+        <g transform="translate(230,200)">
+          <line x1="-2" y1="0" x2="-2" y2="60" stroke="#7a6852" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <rect x="-9" y="9" width="18" height="28" fill="#7a6852" rx="2"/>
+          <line x1="-9" y1="16" x2="-20" y2="22" stroke="#7a6852" stroke-width="3" stroke-linecap="round"/>
+          <line x1="9" y1="16" x2="20" y2="22" stroke="#7a6852" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="0" cy="0" r="10" fill="#6b5a48"/>
+          <rect x="-8" y="6" width="16" height="4" fill="#3a3028" rx="1"/>
+        </g>
+        <g transform="translate(280,200)">
+          <line x1="-2" y1="0" x2="-2" y2="60" stroke="#7a6852" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <rect x="-9" y="9" width="18" height="28" fill="#7a6852" rx="2"/>
+          <line x1="-9" y1="16" x2="-20" y2="22" stroke="#7a6852" stroke-width="3" stroke-linecap="round"/>
+          <line x1="9" y1="16" x2="20" y2="22" stroke="#7a6852" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="0" cy="0" r="10" fill="#6b5a48"/>
+          <rect x="-8" y="6" width="16" height="4" fill="#3a3028" rx="1"/>
+        </g>
+      </g>
 
-          <!-- ===== Outside scene (right side) ===== -->
-          <g class="cave-layer" id="layer-outside" style="opacity:0">
-            <!-- Sky -->
-            <rect x="540" y="0" width="260" height="240" fill="url(#sky)"/>
+      <g class="cave-layer" id="layer-fire" style="opacity:0">
+        <circle cx="400" cy="220" r="80" fill="url(#fireGlow)" opacity="0.6"/>
+        <circle cx="400" cy="226" r="48" fill="url(#fireGlow)" opacity="0.9"/>
+        <ellipse cx="400" cy="252" rx="26" ry="4" fill="#5a3a22"/>
+        <rect x="378" y="248" width="44" height="6" fill="#6a4628" rx="2"/>
+        <line x1="384" y1="251" x2="416" y2="251" stroke="#3e2a18" stroke-width="0.6"/>
+        <path d="M 378 250 q -3 -10 3 -18 q 2 7 4 3 q 0 7 4 8 q 2 5 -2 8 z" fill="#e07a2a" opacity="0.85"/>
+        <path d="M 422 250 q -3 -10 3 -18 q 2 7 4 3 q 0 7 4 8 q 2 5 -2 8 z" fill="#e07a2a" opacity="0.85"/>
+        <path d="M 394 248 q -8 -20 2 -36 q 4 14 8 6 q -2 16 10 22 q 4 10 -4 14 z" fill="#e07a2a"/>
+        <path d="M 397 244 q -5 -14 5 -26 q 2 10 5 4 q 0 10 5 14 q 2 6 -3 8 z" fill="#f5b25b"/>
+        <path d="M 399 238 q -2 -8 3 -16 q 1 6 3 2 q 0 6 3 8 q 1 4 -1 4 z" fill="#fff4cc"/>
+        <g fill="#f5b25b">
+          <circle cx="394" cy="200" r="1.2"/>
+          <circle cx="412" cy="184" r="1"/>
+          <circle cx="385" cy="172" r="1.1"/>
+          <circle cx="418" cy="160" r="0.9"/>
+          <circle cx="400" cy="148" r="0.8"/>
+          <circle cx="408" cy="138" r="0.7"/>
+        </g>
+        <text x="400" y="276" text-anchor="middle" font-family="Georgia" font-size="9" fill="#cfc3a8" font-style="italic">fire</text>
+      </g>
 
-            <!-- Distant mountains -->
-            <polygon points="540,240 575,180 612,210 650,158 692,202 738,170 800,215 800,240" fill="#9aa3b2" opacity="0.65"/>
-            <polygon points="540,240 580,212 618,228 660,200 700,222 740,208 800,234 800,240" fill="#8e9b86" opacity="0.85"/>
-
-            <!-- Ground -->
-            <rect x="540" y="240" width="260" height="120" fill="#8a9b6c"/>
-            <!-- Grass texture lines -->
-            <g stroke="#6e8052" stroke-width="0.7" opacity="0.6">
-              <line x1="556" y1="252" x2="558" y2="248"/>
-              <line x1="572" y1="258" x2="574" y2="254"/>
-              <line x1="592" y1="264" x2="594" y2="260"/>
-              <line x1="616" y1="272" x2="618" y2="268"/>
-              <line x1="640" y1="280" x2="642" y2="276"/>
-              <line x1="672" y1="292" x2="674" y2="288"/>
-              <line x1="700" y1="298" x2="702" y2="294"/>
-              <line x1="740" y1="308" x2="742" y2="304"/>
-            </g>
-
-            <!-- Cloud -->
-            <g fill="#fff" opacity="0.85">
-              <ellipse cx="600" cy="58" rx="22" ry="8"/>
-              <ellipse cx="612" cy="54" rx="14" ry="7"/>
-              <ellipse cx="588" cy="56" rx="10" ry="5"/>
-            </g>
-
-            <!-- Sun rays (extending beyond glow) -->
-            <g stroke="#f4c43a" stroke-width="2" stroke-linecap="round" opacity="0.7">
-              <line x1="720" y1="14" x2="720" y2="28"/>
-              <line x1="720" y1="112" x2="720" y2="126"/>
-              <line x1="664" y1="70" x2="678" y2="70"/>
-              <line x1="762" y1="70" x2="776" y2="70"/>
-              <line x1="678" y1="28" x2="688" y2="38"/>
-              <line x1="752" y1="38" x2="762" y2="28"/>
-              <line x1="678" y1="112" x2="688" y2="102"/>
-              <line x1="752" y1="102" x2="762" y2="112"/>
-            </g>
-
-            <!-- Sun -->
-            <circle cx="720" cy="70" r="55" fill="url(#sunGlow)"/>
-            <circle cx="720" cy="70" r="22" fill="#f4c43a"/>
-
-            <!-- Trees -->
-            <g>
-              <ellipse cx="598" cy="228" rx="20" ry="28" fill="#4d6a3d"/>
-              <rect x="595" y="246" width="6" height="22" fill="#5a4a30"/>
-              <ellipse cx="652" cy="240" rx="14" ry="20" fill="#5a7a48"/>
-              <rect x="650" y="254" width="4" height="14" fill="#5a4a30"/>
-              <ellipse cx="765" cy="246" rx="18" ry="24" fill="#4d6a3d"/>
-              <rect x="762" y="262" width="6" height="18" fill="#5a4a30"/>
-            </g>
-
-            <!-- Path leading from cave mouth -->
-            <path d="M 540 296 Q 600 300 660 308 Q 700 316 740 322" stroke="#cab298" stroke-width="6" fill="none" opacity="0.75" stroke-linecap="round"/>
-
-            <!-- Reflection puddle -->
-            <ellipse cx="680" cy="332" rx="52" ry="6" fill="#cfdce5" opacity="0.55"/>
+      <g class="cave-layer" id="layer-puppeteers" style="opacity:0">
+        <g transform="translate(320,150)">
+          <rect x="-7" y="7" width="14" height="26" fill="#8a7560" rx="2"/>
+          <line x1="3" y1="8" x2="6" y2="-6" stroke="#8a7560" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="0" cy="0" r="8" fill="#7a6852"/>
+          <line x1="6" y1="-8" x2="6" y2="-32" stroke="#5c4d3a" stroke-width="2"/>
+          <g transform="translate(6,-42)">
+            <circle cx="0" cy="0" r="4.5" fill="#a89074"/>
+            <rect x="-3" y="4" width="6" height="13" fill="#a89074" rx="1"/>
+            <line x1="3" y1="6" x2="6" y2="-3" stroke="#a89074" stroke-width="2" stroke-linecap="round"/>
+            <line x1="-3" y1="6" x2="-6" y2="12" stroke="#a89074" stroke-width="2" stroke-linecap="round"/>
+            <line x1="-2" y1="17" x2="-2" y2="24" stroke="#a89074" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="2" y1="17" x2="2" y2="24" stroke="#a89074" stroke-width="2.2" stroke-linecap="round"/>
           </g>
-
-          <!-- ===== The cave walls, floor, tunnel ===== -->
-          <g class="cave-layer" id="layer-cave-walls">
-            <!-- Cave silhouette (back wall + ceiling) -->
-            <path d="M 0 360 L 0 40 Q 20 20 60 30 L 80 60 Q 100 50 130 80 L 160 60 Q 180 90 220 70 L 540 70 L 540 360 Z"
-                  fill="#2a2622"/>
-            <!-- Cave floor (gradient for depth) -->
-            <rect x="0" y="280" width="540" height="80" fill="url(#caveFloor)"/>
-            <!-- Floor cracks -->
-            <g stroke="#1a1612" stroke-width="0.6" opacity="0.7">
-              <path d="M 60 320 Q 80 322 110 318"/>
-              <path d="M 200 340 Q 240 342 280 338"/>
-              <path d="M 380 326 Q 420 328 460 322"/>
-            </g>
-            <!-- Stalactites hanging from ceiling -->
-            <g fill="#1a1612">
-              <polygon points="80,40 88,40 84,68"/>
-              <polygon points="172,62 180,62 176,86"/>
-              <polygon points="240,72 246,72 243,90"/>
-              <polygon points="318,72 326,72 322,96"/>
-              <polygon points="400,72 406,72 403,88"/>
-              <polygon points="468,72 476,72 472,92"/>
-            </g>
-            <!-- Stalagmites from floor -->
-            <g fill="#1a1612">
-              <polygon points="22,360 32,360 27,328"/>
-              <polygon points="124,360 132,360 128,338"/>
-              <polygon points="356,360 364,360 360,332"/>
-              <polygon points="460,360 466,360 463,344"/>
-            </g>
-            <!-- Tunnel rising to the right -->
-            <path d="M 480 220 L 600 120 L 600 60 L 480 60 Z" fill="#1a1612"/>
-            <path d="M 540 70 L 600 60 L 600 120 L 540 220 Z" fill="#221d18"/>
-            <!-- Tunnel rough lower edge -->
-            <path d="M 482 220 L 492 214 L 504 222 L 516 214 L 528 220 L 540 213" stroke="#1a1612" stroke-width="1.2" fill="none"/>
+        </g>
+        <g transform="translate(370,150)">
+          <rect x="-7" y="7" width="14" height="26" fill="#8a7560" rx="2"/>
+          <line x1="3" y1="8" x2="6" y2="-6" stroke="#8a7560" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="0" cy="0" r="8" fill="#7a6852"/>
+          <line x1="6" y1="-8" x2="6" y2="-32" stroke="#5c4d3a" stroke-width="2"/>
+          <g transform="translate(6,-38)">
+            <ellipse cx="0" cy="0" rx="13" ry="6" fill="#a89074"/>
+            <ellipse cx="13" cy="-2" rx="5" ry="4" fill="#a89074"/>
+            <polygon points="12,-4 15,-9 18,-3" fill="#a89074"/>
+            <line x1="-8" y1="5" x2="-8" y2="13" stroke="#a89074" stroke-width="2"/>
+            <line x1="-2" y1="5" x2="-2" y2="13" stroke="#a89074" stroke-width="2"/>
+            <line x1="4" y1="5" x2="4" y2="13" stroke="#a89074" stroke-width="2"/>
+            <line x1="10" y1="5" x2="10" y2="13" stroke="#a89074" stroke-width="2"/>
+            <path d="M -13 -1 q -8 -4 -7 -10" stroke="#a89074" stroke-width="2" fill="none"/>
           </g>
+        </g>
+      </g>
 
-          <!-- ===== Back wall (where shadows fall) ===== -->
-          <g class="cave-layer" id="layer-wall">
-            <rect x="10" y="80" width="120" height="200" fill="#4a3f33"/>
-            <!-- Wall stone texture -->
-            <g stroke="#352c24" stroke-width="0.6" opacity="0.55">
-              <line x1="10" y1="116" x2="130" y2="120"/>
-              <line x1="10" y1="156" x2="130" y2="159"/>
-              <line x1="10" y1="200" x2="130" y2="202"/>
-              <line x1="10" y1="240" x2="130" y2="242"/>
-              <line x1="48" y1="80" x2="46" y2="280"/>
-              <line x1="94" y1="80" x2="96" y2="280"/>
-            </g>
-            <text x="70" y="100" text-anchor="middle" font-family="Georgia" font-size="9" fill="#9b8f7c" font-style="italic">shadow wall</text>
-          </g>
+      <g class="cave-layer" id="layer-parapet" style="opacity:0">
+        <rect x="295" y="170" width="160" height="22" fill="#5c4d3a"/>
+        <line x1="295" y1="170" x2="455" y2="170" stroke="#7a6852" stroke-width="1.2"/>
+        <g stroke="#3a3028" stroke-width="0.6">
+          <line x1="325" y1="170" x2="325" y2="192"/>
+          <line x1="360" y1="170" x2="360" y2="192"/>
+          <line x1="395" y1="170" x2="395" y2="192"/>
+          <line x1="425" y1="170" x2="425" y2="192"/>
+          <line x1="295" y1="181" x2="455" y2="181"/>
+        </g>
+        <text x="375" y="166" text-anchor="middle" font-family="Georgia" font-size="9" fill="#cfc3a8" font-style="italic">parapet</text>
+      </g>
 
-          <!-- ===== Shadows on the wall (matching the puppets) ===== -->
-          <g class="cave-layer" id="layer-shadows">
-            <!-- Shadow of the man-statue (taller, with raised arm) -->
-            <g fill="#0e0c0a">
-              <circle cx="42" cy="178" r="7"/>
-              <rect x="36" y="185" width="12" height="22" rx="1"/>
-              <!-- Raised arm -->
-              <rect x="40" y="166" width="4" height="22" transform="rotate(35 42 177)" rx="1"/>
-              <!-- Other arm -->
-              <rect x="33" y="188" width="3" height="16" transform="rotate(-10 34 196)" rx="1"/>
-              <!-- Legs -->
-              <rect x="36" y="206" width="4" height="24" rx="1"/>
-              <rect x="42" y="206" width="4" height="24" rx="1"/>
-            </g>
-            <!-- Shadow of the animal (four legs, head, tail) -->
-            <g fill="#0e0c0a">
-              <ellipse cx="100" cy="206" rx="16" ry="8"/>
-              <ellipse cx="116" cy="202" rx="6" ry="5"/>
-              <polygon points="115,199 118,193 121,200"/>
-              <path d="M 84 204 q -8 -2 -8 -12" stroke="#0e0c0a" stroke-width="2.5" fill="none"/>
-              <rect x="89" y="212" width="3" height="14" rx="1"/>
-              <rect x="96" y="212" width="3" height="14" rx="1"/>
-              <rect x="105" y="212" width="3" height="14" rx="1"/>
-              <rect x="112" y="212" width="3" height="14" rx="1"/>
-            </g>
-          </g>
+      <g class="cave-layer" id="layer-released" style="opacity:0">
+        <g transform="translate(230,200)">
+          <rect x="-9" y="9" width="18" height="28" fill="#b89e80" rx="2"/>
+          <circle cx="2" cy="0" r="10" fill="#a8917a"/>
+          <line x1="-6" y1="6" x2="-14" y2="-10" stroke="#a8917a" stroke-width="4" stroke-linecap="round"/>
+          <line x1="8" y1="6" x2="16" y2="-10" stroke="#a8917a" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="-14" cy="-10" r="3" fill="#a8917a"/>
+          <circle cx="16" cy="-10" r="3" fill="#a8917a"/>
+          <line x1="-3" y1="45" x2="-1" y2="50" stroke="#7a6852" stroke-width="1.5"/>
+          <circle cx="-2" cy="52" r="1.5" fill="none" stroke="#7a6852" stroke-width="1"/>
+        </g>
+      </g>
 
-          <!-- ===== Chained prisoners ===== -->
-          <g class="cave-layer" id="layer-prisoners">
-            <!-- Iron rings in the cave floor -->
-            <g fill="none" stroke="#5a4a36" stroke-width="2">
-              <circle cx="180" cy="262" r="3"/>
-              <circle cx="230" cy="262" r="3"/>
-              <circle cx="280" cy="262" r="3"/>
-            </g>
-            <!-- Prisoner 1 -->
-            <g transform="translate(180,200)">
-              <line x1="-2" y1="0" x2="-2" y2="60" stroke="#7a6852" stroke-width="1.5" stroke-dasharray="3,2"/>
-              <rect x="-9" y="9" width="18" height="28" fill="#7a6852" rx="2"/>
-              <line x1="-9" y1="16" x2="-20" y2="22" stroke="#7a6852" stroke-width="3" stroke-linecap="round"/>
-              <line x1="9" y1="16" x2="20" y2="22" stroke="#7a6852" stroke-width="3" stroke-linecap="round"/>
-              <circle cx="0" cy="0" r="10" fill="#6b5a48"/>
-              <rect x="-8" y="6" width="16" height="4" fill="#3a3028" rx="1"/>
-            </g>
-            <!-- Prisoner 2 -->
-            <g transform="translate(230,200)">
-              <line x1="-2" y1="0" x2="-2" y2="60" stroke="#7a6852" stroke-width="1.5" stroke-dasharray="3,2"/>
-              <rect x="-9" y="9" width="18" height="28" fill="#7a6852" rx="2"/>
-              <line x1="-9" y1="16" x2="-20" y2="22" stroke="#7a6852" stroke-width="3" stroke-linecap="round"/>
-              <line x1="9" y1="16" x2="20" y2="22" stroke="#7a6852" stroke-width="3" stroke-linecap="round"/>
-              <circle cx="0" cy="0" r="10" fill="#6b5a48"/>
-              <rect x="-8" y="6" width="16" height="4" fill="#3a3028" rx="1"/>
-            </g>
-            <!-- Prisoner 3 -->
-            <g transform="translate(280,200)">
-              <line x1="-2" y1="0" x2="-2" y2="60" stroke="#7a6852" stroke-width="1.5" stroke-dasharray="3,2"/>
-              <rect x="-9" y="9" width="18" height="28" fill="#7a6852" rx="2"/>
-              <line x1="-9" y1="16" x2="-20" y2="22" stroke="#7a6852" stroke-width="3" stroke-linecap="round"/>
-              <line x1="9" y1="16" x2="20" y2="22" stroke="#7a6852" stroke-width="3" stroke-linecap="round"/>
-              <circle cx="0" cy="0" r="10" fill="#6b5a48"/>
-              <rect x="-8" y="6" width="16" height="4" fill="#3a3028" rx="1"/>
-            </g>
-          </g>
+      <g class="cave-layer" id="layer-ascent" style="opacity:0">
+        <g transform="translate(545,170)">
+          <rect x="-7" y="6" width="14" height="22" fill="#b89e80" rx="2" transform="rotate(-28 0 16)"/>
+          <circle cx="0" cy="0" r="8" fill="#a8917a"/>
+          <line x1="3" y1="8" x2="13" y2="-2" stroke="#a8917a" stroke-width="4" stroke-linecap="round"/>
+          <line x1="-6" y1="14" x2="-12" y2="6" stroke="#a8917a" stroke-width="4" stroke-linecap="round"/>
+          <line x1="2" y1="26" x2="10" y2="34" stroke="#b89e80" stroke-width="4" stroke-linecap="round"/>
+        </g>
+      </g>
 
-          <!-- ===== Fire (deepest in the cave) ===== -->
-          <g class="cave-layer" id="layer-fire" style="opacity:0">
-            <circle cx="400" cy="220" r="80" fill="url(#fireGlow)" opacity="0.6"/>
-            <circle cx="400" cy="226" r="48" fill="url(#fireGlow)" opacity="0.9"/>
-            <ellipse cx="400" cy="252" rx="26" ry="4" fill="#5a3a22"/>
-            <rect x="378" y="248" width="44" height="6" fill="#6a4628" rx="2"/>
-            <line x1="384" y1="251" x2="416" y2="251" stroke="#3e2a18" stroke-width="0.6"/>
-            <path d="M 378 250 q -3 -10 3 -18 q 2 7 4 3 q 0 7 4 8 q 2 5 -2 8 z" fill="#e07a2a" opacity="0.85"/>
-            <path d="M 422 250 q -3 -10 3 -18 q 2 7 4 3 q 0 7 4 8 q 2 5 -2 8 z" fill="#e07a2a" opacity="0.85"/>
-            <path d="M 394 248 q -8 -20 2 -36 q 4 14 8 6 q -2 16 10 22 q 4 10 -4 14 z" fill="#e07a2a"/>
-            <path d="M 397 244 q -5 -14 5 -26 q 2 10 5 4 q 0 10 5 14 q 2 6 -3 8 z" fill="#f5b25b"/>
-            <path d="M 399 238 q -2 -8 3 -16 q 1 6 3 2 q 0 6 3 8 q 1 4 -1 4 z" fill="#fff4cc"/>
-            <g fill="#f5b25b">
-              <circle cx="394" cy="200" r="1.2"/>
-              <circle cx="412" cy="184" r="1"/>
-              <circle cx="385" cy="172" r="1.1"/>
-              <circle cx="418" cy="160" r="0.9"/>
-              <circle cx="400" cy="148" r="0.8"/>
-              <circle cx="408" cy="138" r="0.7"/>
-            </g>
-            <text x="400" y="276" text-anchor="middle" font-family="Georgia" font-size="9" fill="#cfc3a8" font-style="italic">fire</text>
-          </g>
+      <g class="cave-layer" id="layer-outsider" style="opacity:0">
+        <g transform="translate(640,260)">
+          <rect x="-7" y="7" width="14" height="26" fill="#e8d4b6" rx="2"/>
+          <circle cx="0" cy="0" r="9" fill="#d8c4a8"/>
+          <line x1="-6" y1="6" x2="-12" y2="-12" stroke="#d8c4a8" stroke-width="4" stroke-linecap="round"/>
+          <line x1="6" y1="6" x2="12" y2="-12" stroke="#d8c4a8" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="-12" cy="-12" r="3" fill="#d8c4a8"/>
+          <circle cx="12" cy="-12" r="3" fill="#d8c4a8"/>
+          <line x1="-3" y1="33" x2="-3" y2="48" stroke="#e8d4b6" stroke-width="4" stroke-linecap="round"/>
+          <line x1="3" y1="33" x2="3" y2="48" stroke="#e8d4b6" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="0" cy="52" rx="14" ry="3" fill="#000" opacity="0.3"/>
+        </g>
+        <ellipse cx="680" cy="334" rx="7" ry="2" fill="#a8917a" opacity="0.6"/>
+      </g>
 
-          <!-- ===== Puppeteers (walking on the raised path, between prisoners and fire) ===== -->
-          <g class="cave-layer" id="layer-puppeteers" style="opacity:0">
-            <!-- Puppeteer 1: carrying a man-statue with raised arm -->
-            <g transform="translate(320,150)">
-              <rect x="-7" y="7" width="14" height="26" fill="#8a7560" rx="2"/>
-              <line x1="3" y1="8" x2="6" y2="-6" stroke="#8a7560" stroke-width="3" stroke-linecap="round"/>
-              <circle cx="0" cy="0" r="8" fill="#7a6852"/>
-              <line x1="6" y1="-8" x2="6" y2="-32" stroke="#5c4d3a" stroke-width="2"/>
-              <g transform="translate(6,-42)">
-                <circle cx="0" cy="0" r="4.5" fill="#a89074"/>
-                <rect x="-3" y="4" width="6" height="13" fill="#a89074" rx="1"/>
-                <line x1="3" y1="6" x2="6" y2="-3" stroke="#a89074" stroke-width="2" stroke-linecap="round"/>
-                <line x1="-3" y1="6" x2="-6" y2="12" stroke="#a89074" stroke-width="2" stroke-linecap="round"/>
-                <line x1="-2" y1="17" x2="-2" y2="24" stroke="#a89074" stroke-width="2.2" stroke-linecap="round"/>
-                <line x1="2" y1="17" x2="2" y2="24" stroke="#a89074" stroke-width="2.2" stroke-linecap="round"/>
-              </g>
-            </g>
-            <!-- Puppeteer 2: carrying an animal silhouette -->
-            <g transform="translate(370,150)">
-              <rect x="-7" y="7" width="14" height="26" fill="#8a7560" rx="2"/>
-              <line x1="3" y1="8" x2="6" y2="-6" stroke="#8a7560" stroke-width="3" stroke-linecap="round"/>
-              <circle cx="0" cy="0" r="8" fill="#7a6852"/>
-              <line x1="6" y1="-8" x2="6" y2="-32" stroke="#5c4d3a" stroke-width="2"/>
-              <g transform="translate(6,-38)">
-                <ellipse cx="0" cy="0" rx="13" ry="6" fill="#a89074"/>
-                <ellipse cx="13" cy="-2" rx="5" ry="4" fill="#a89074"/>
-                <polygon points="12,-4 15,-9 18,-3" fill="#a89074"/>
-                <line x1="-8" y1="5" x2="-8" y2="13" stroke="#a89074" stroke-width="2"/>
-                <line x1="-2" y1="5" x2="-2" y2="13" stroke="#a89074" stroke-width="2"/>
-                <line x1="4" y1="5" x2="4" y2="13" stroke="#a89074" stroke-width="2"/>
-                <line x1="10" y1="5" x2="10" y2="13" stroke="#a89074" stroke-width="2"/>
-                <path d="M -13 -1 q -8 -4 -7 -10" stroke="#a89074" stroke-width="2" fill="none"/>
-              </g>
-            </g>
-          </g>
+      <g class="cave-layer" id="layer-returner" style="opacity:0">
+        <g transform="translate(490,200)">
+          <rect x="-7" y="7" width="14" height="24" fill="#b89e80" rx="2"/>
+          <circle cx="0" cy="0" r="9" fill="#a8917a"/>
+          <line x1="-5" y1="4" x2="-9" y2="-2" stroke="#a8917a" stroke-width="4" stroke-linecap="round"/>
+          <line x1="5" y1="4" x2="9" y2="-2" stroke="#a8917a" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="-8" cy="-3" rx="3.5" ry="2.5" fill="#a8917a"/>
+          <ellipse cx="8" cy="-3" rx="3.5" ry="2.5" fill="#a8917a"/>
+          <line x1="-3" y1="31" x2="-5" y2="46" stroke="#b89e80" stroke-width="4" stroke-linecap="round"/>
+          <line x1="3" y1="31" x2="7" y2="46" stroke="#b89e80" stroke-width="4" stroke-linecap="round"/>
+        </g>
+      </g>
 
-          <!-- ===== Parapet (in front of the puppeteers, hides their lower bodies) ===== -->
-          <g class="cave-layer" id="layer-parapet" style="opacity:0">
-            <!-- A short low wall set well to the right of the prisoners -->
-            <rect x="295" y="170" width="160" height="22" fill="#5c4d3a"/>
-            <!-- Top edge highlight -->
-            <line x1="295" y1="170" x2="455" y2="170" stroke="#7a6852" stroke-width="1.2"/>
-            <!-- Brick lines -->
-            <g stroke="#3a3028" stroke-width="0.6">
-              <line x1="325" y1="170" x2="325" y2="192"/>
-              <line x1="360" y1="170" x2="360" y2="192"/>
-              <line x1="395" y1="170" x2="395" y2="192"/>
-              <line x1="425" y1="170" x2="425" y2="192"/>
-              <line x1="295" y1="181" x2="455" y2="181"/>
-            </g>
-            <text x="375" y="166" text-anchor="middle" font-family="Georgia" font-size="9" fill="#cfc3a8" font-style="italic">parapet</text>
-          </g>
+    </svg>
+  </div>
 
-          <!-- ===== Released prisoner ===== -->
-          <g class="cave-layer" id="layer-released" style="opacity:0">
-            <g transform="translate(230,200)">
-              <rect x="-9" y="9" width="18" height="28" fill="#b89e80" rx="2"/>
-              <circle cx="2" cy="0" r="10" fill="#a8917a"/>
-              <!-- Arms raised against the glare -->
-              <line x1="-6" y1="6" x2="-14" y2="-10" stroke="#a8917a" stroke-width="4" stroke-linecap="round"/>
-              <line x1="8" y1="6" x2="16" y2="-10" stroke="#a8917a" stroke-width="4" stroke-linecap="round"/>
-              <!-- Hands -->
-              <circle cx="-14" cy="-10" r="3" fill="#a8917a"/>
-              <circle cx="16" cy="-10" r="3" fill="#a8917a"/>
-              <!-- Broken chain link on the ground -->
-              <line x1="-3" y1="45" x2="-1" y2="50" stroke="#7a6852" stroke-width="1.5"/>
-              <circle cx="-2" cy="52" r="1.5" fill="none" stroke="#7a6852" stroke-width="1"/>
-            </g>
-          </g>
+  <div class="caption" id="cave-caption">
+    <span class="step-label">Step 1 of 6 &mdash; The shadows</span>
+    Chained since childhood, the prisoners see only shadows cast on the wall in front of them, and take these for the whole of reality.
+  </div>
 
-          <!-- ===== Ascending figure (climbing tunnel) ===== -->
-          <g class="cave-layer" id="layer-ascent" style="opacity:0">
-            <g transform="translate(545,170)">
-              <rect x="-7" y="6" width="14" height="22" fill="#b89e80" rx="2" transform="rotate(-28 0 16)"/>
-              <circle cx="0" cy="0" r="8" fill="#a8917a"/>
-              <line x1="3" y1="8" x2="13" y2="-2" stroke="#a8917a" stroke-width="4" stroke-linecap="round"/>
-              <line x1="-6" y1="14" x2="-12" y2="6" stroke="#a8917a" stroke-width="4" stroke-linecap="round"/>
-              <line x1="2" y1="26" x2="10" y2="34" stroke="#b89e80" stroke-width="4" stroke-linecap="round"/>
-            </g>
-          </g>
-
-          <!-- ===== Outsider (figure in the sunlit world) ===== -->
-          <g class="cave-layer" id="layer-outsider" style="opacity:0">
-            <g transform="translate(640,260)">
-              <rect x="-7" y="7" width="14" height="26" fill="#e8d4b6" rx="2"/>
-              <circle cx="0" cy="0" r="9" fill="#d8c4a8"/>
-              <!-- Arms reaching up -->
-              <line x1="-6" y1="6" x2="-12" y2="-12" stroke="#d8c4a8" stroke-width="4" stroke-linecap="round"/>
-              <line x1="6" y1="6" x2="12" y2="-12" stroke="#d8c4a8" stroke-width="4" stroke-linecap="round"/>
-              <!-- Hands -->
-              <circle cx="-12" cy="-12" r="3" fill="#d8c4a8"/>
-              <circle cx="12" cy="-12" r="3" fill="#d8c4a8"/>
-              <!-- Legs -->
-              <line x1="-3" y1="33" x2="-3" y2="48" stroke="#e8d4b6" stroke-width="4" stroke-linecap="round"/>
-              <line x1="3" y1="33" x2="3" y2="48" stroke="#e8d4b6" stroke-width="4" stroke-linecap="round"/>
-              <!-- Shadow under feet -->
-              <ellipse cx="0" cy="52" rx="14" ry="3" fill="#000" opacity="0.3"/>
-            </g>
-            <!-- Reflection in the puddle -->
-            <ellipse cx="680" cy="334" rx="7" ry="2" fill="#a8917a" opacity="0.6"/>
-          </g>
-
-          <!-- ===== Returner (back at cave mouth, eyes adjusting) ===== -->
-          <g class="cave-layer" id="layer-returner" style="opacity:0">
-            <g transform="translate(490,200)">
-              <rect x="-7" y="7" width="14" height="24" fill="#b89e80" rx="2"/>
-              <circle cx="0" cy="0" r="9" fill="#a8917a"/>
-              <!-- Hands at face shielding eyes -->
-              <line x1="-5" y1="4" x2="-9" y2="-2" stroke="#a8917a" stroke-width="4" stroke-linecap="round"/>
-              <line x1="5" y1="4" x2="9" y2="-2" stroke="#a8917a" stroke-width="4" stroke-linecap="round"/>
-              <ellipse cx="-8" cy="-3" rx="3.5" ry="2.5" fill="#a8917a"/>
-              <ellipse cx="8" cy="-3" rx="3.5" ry="2.5" fill="#a8917a"/>
-              <!-- Stumbling legs -->
-              <line x1="-3" y1="31" x2="-5" y2="46" stroke="#b89e80" stroke-width="4" stroke-linecap="round"/>
-              <line x1="3" y1="31" x2="7" y2="46" stroke="#b89e80" stroke-width="4" stroke-linecap="round"/>
-            </g>
-          </g>
-
-        </svg>
-      </div>
-
-      <div class="cave-caption" id="cave-caption">
-        <span class="step-label">Step 1 of 6 — The shadows</span>
-        Chained since childhood, the prisoners see only shadows cast on the wall in front of them, and take these for the whole of reality.
-      </div>
-
-      <div class="cave-controls">
-        <button id="cave-prev" disabled>← Back</button>
-        <button id="cave-next">Next →</button>
-        <span class="step-indicator" id="cave-step-indicator">1 / 6</span>
-        <button id="cave-restart" style="margin-left:auto">Restart</button>
-      </div>
-    </div>
-  </section>
-
-  <footer class="colophon">
-    Made for a Year 7 philosophy lesson on Plato's Republic.
-  </footer>
-
-</div>
+  <div class="step-controls">
+    <button class="step-btn" id="cave-prev" disabled>&larr; Back</button>
+    <button class="step-btn" id="cave-next">Next &rarr;</button>
+    <span class="step-indicator" id="cave-step-indicator">1 / 6</span>
+    <button class="step-btn" id="cave-restart" style="margin-left:auto">Restart</button>
+  </div>
+</section>
 
 <script>
   // -------- Sun analogy ----------
   (function setupSun() {
-    const svg = document.getElementById('sun-svg');
+    var svg = document.getElementById('sun-svg');
     if (!svg) return;
-    const groups = svg.querySelectorAll('[data-row]');
+    var groups = svg.querySelectorAll('[data-row]');
 
     function activate(row) {
-      groups.forEach(el => {
+      groups.forEach(function (el) {
         if (el.dataset.row === row) {
           el.classList.remove('row-dim');
           el.classList.add('row-active');
@@ -947,72 +590,70 @@
       });
     }
     function clearAll() {
-      groups.forEach(el => {
+      groups.forEach(function (el) {
         el.classList.remove('row-active');
         el.classList.remove('row-dim');
       });
     }
 
-    groups.forEach(el => {
-      el.addEventListener('mouseenter', () => activate(el.dataset.row));
+    groups.forEach(function (el) {
+      el.addEventListener('mouseenter', function () { activate(el.dataset.row); });
       el.addEventListener('mouseleave', clearAll);
     });
   })();
 
   // -------- The Cave ----------
   (function setupCave() {
-    const caption = document.getElementById('cave-caption');
-    const prevBtn = document.getElementById('cave-prev');
-    const nextBtn = document.getElementById('cave-next');
-    const restartBtn = document.getElementById('cave-restart');
-    const indicator = document.getElementById('cave-step-indicator');
+    var caption = document.getElementById('cave-caption');
+    var prevBtn = document.getElementById('cave-prev');
+    var nextBtn = document.getElementById('cave-next');
+    var restartBtn = document.getElementById('cave-restart');
+    var indicator = document.getElementById('cave-step-indicator');
 
-    // Each step describes the visibility of each layer.
-    // 'on' = fully visible, 'dim' = faded, 'off' = hidden.
-    const layers = ['wall','shadows','prisoners','parapet','puppeteers','fire','released','ascent','outside','outsider','returner','cave-walls'];
+    var layers = ['wall','shadows','prisoners','parapet','puppeteers','fire','released','ascent','outside','outsider','returner','cave-walls'];
 
-    const steps = [
-      { // 1: The shadows
+    var steps = [
+      {
         label: 'Step 1 of 6 — The shadows',
         text: 'Chained since childhood, the prisoners see only shadows cast on the wall in front of them, and take these for the whole of reality.',
         state: { 'cave-walls':'on', wall:'on', shadows:'on', prisoners:'on', parapet:'off', puppeteers:'off', fire:'off', released:'off', ascent:'off', outside:'off', outsider:'off', returner:'off' }
       },
-      { // 2: What makes the shadows
+      {
         label: 'Step 2 of 6 — The makers of the shadows',
         text: 'Behind the prisoners runs a parapet along which puppeteers carry figures. Behind these, a fire burns. The shadows are merely the silhouettes of these figures, thrown forward by firelight.',
         state: { 'cave-walls':'on', wall:'on', shadows:'on', prisoners:'on', parapet:'on', puppeteers:'on', fire:'on', released:'off', ascent:'off', outside:'off', outsider:'off', returner:'off' }
       },
-      { // 3: One is released
+      {
         label: 'Step 3 of 6 — The turn',
         text: 'A prisoner is released. Forced to turn, his eyes burn from the fire. He sees the parapet and the puppets, but these new sights seem to him less real than the shadows he knew all his life.',
         state: { 'cave-walls':'on', wall:'dim', shadows:'dim', prisoners:'dim', parapet:'on', puppeteers:'on', fire:'on', released:'on', ascent:'off', outside:'off', outsider:'off', returner:'off' }
       },
-      { // 4: The ascent
+      {
         label: 'Step 4 of 6 — The ascent',
         text: 'He is dragged up through the tunnel toward the surface, struggling against the brightness above.',
         state: { 'cave-walls':'on', wall:'dim', shadows:'dim', prisoners:'dim', parapet:'dim', puppeteers:'dim', fire:'dim', released:'off', ascent:'on', outside:'dim', outsider:'off', returner:'off' }
       },
-      { // 5: Outside in the sun
+      {
         label: 'Step 5 of 6 — The sunlit world',
         text: 'Above ground, he can at first bear only shadows on the earth and reflections in water. In time he sees the objects themselves, and at last the sun. He understands that the sun is the cause of all he has seen.',
         state: { 'cave-walls':'dim', wall:'off', shadows:'off', prisoners:'off', parapet:'off', puppeteers:'off', fire:'off', released:'off', ascent:'off', outside:'on', outsider:'on', returner:'off' }
       },
-      { // 6: Return
+      {
         label: 'Step 6 of 6 — The return',
         text: 'He must return. Back in the cave, his eyes are poorly adapted to the gloom. The prisoners conclude the journey upward has ruined him. If he tried to free them, they would kill him.',
         state: { 'cave-walls':'on', wall:'on', shadows:'on', prisoners:'on', parapet:'on', puppeteers:'on', fire:'on', released:'off', ascent:'off', outside:'dim', outsider:'off', returner:'on' }
       }
     ];
 
-    let current = 0;
+    var current = 0;
 
     function applyStep(i) {
       current = i;
-      const step = steps[i];
-      layers.forEach(name => {
-        const el = document.getElementById('layer-' + name);
+      var step = steps[i];
+      layers.forEach(function (name) {
+        var el = document.getElementById('layer-' + name);
         if (!el) return;
-        const s = step.state[name] || 'off';
+        var s = step.state[name] || 'off';
         if (s === 'on') {
           el.style.opacity = 1;
           el.classList.remove('dim');
@@ -1030,12 +671,13 @@
       nextBtn.disabled = (i === steps.length - 1);
     }
 
-    prevBtn.addEventListener('click', () => { if (current > 0) applyStep(current - 1); });
-    nextBtn.addEventListener('click', () => { if (current < steps.length - 1) applyStep(current + 1); });
-    restartBtn.addEventListener('click', () => applyStep(0));
+    prevBtn.addEventListener('click', function () { if (current > 0) applyStep(current - 1); });
+    nextBtn.addEventListener('click', function () { if (current < steps.length - 1) applyStep(current + 1); });
+    restartBtn.addEventListener('click', function () { applyStep(0); });
 
     applyStep(0);
   })();
 </script>
+
 </body>
 </html>
