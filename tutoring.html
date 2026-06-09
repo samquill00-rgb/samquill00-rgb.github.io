@@ -45,12 +45,22 @@
       transition: background 0.2s, color 0.2s, border-color 0.2s;
     }
     .plan-btn:hover { background: #8b6f47; color: #fff; border-color: #8b6f47; }
-    .class-name { color: #4a3520; }
-    .class-name::before {
+    .class-info { position: relative; padding-left: 1.4em; }
+    .class-info::before {
       content: "\2726";
+      position: absolute;
+      left: 0;
+      top: 0.15em;
       color: #b8956a;
       font-size: 0.85em;
-      margin-right: 0.6em;
+    }
+    .class-name { color: #4a3520; }
+    .class-meta {
+      display: block;
+      margin-top: 0.12em;
+      font-size: 0.82rem;
+      font-style: italic;
+      color: #8b6f47;
     }
 
     /* Plan-of-Work PDF popup */
@@ -171,20 +181,29 @@
     <h3 style="font-size:0.8rem;font-weight:normal;letter-spacing:0.14em;text-transform:uppercase;color:#8b6f47;border-bottom:1px solid #d4c4a8;padding-bottom:0.4rem;margin-bottom:1rem;">Classes</h3>
     <ul class="class-list">
       <li class="class-row">
-        <span class="class-name">Year 8 Scholarship Preparation (13+)</span>
+        <div class="class-info">
+          <span class="class-name">Year 8 Scholarship Preparation (13+)</span>
+          <span class="class-meta">1&frac12; hours &middot; &pound;55</span>
+        </div>
         <button type="button" class="plan-btn" data-pdf="plans/year-8-scholarship-summer-2026.pdf" data-title="Year 8 Scholarship — Plan of Work, Summer 2026">See the Plan of Work for this coming Summer Holiday</button>
       </li>
       <li class="class-row">
-        <span class="class-name">Year 7 Scholarship Preparation</span>
+        <div class="class-info">
+          <span class="class-name">Year 7 Scholarship Preparation</span>
+          <span class="class-meta">1 hour &middot; &pound;40</span>
+        </div>
         <button type="button" class="plan-btn" data-pdf="plans/year-7-summer-2026.pdf" data-title="Year 7 — Plan of Work, Summer 2026">See the Plan of Work for this coming Summer Holiday</button>
       </li>
       <li class="class-row">
-        <span class="class-name">Year 6 Interview Preparation and Critical Thinking</span>
+        <div class="class-info">
+          <span class="class-name">Year 6 Interview Preparation and Critical Thinking</span>
+          <span class="class-meta">1 hour &middot; &pound;40</span>
+        </div>
         <button type="button" class="plan-btn" data-pdf="plans/critical-thinking-summer-2026.pdf" data-title="Critical Thinking — Plan of Work, Summer 2026">See the Plan of Work for this coming Summer Holiday</button>
       </li>
     </ul>
 
-    <p class="prospectus-item" style="margin-top:1.5em;font-style:italic;">Classes are held online and are booked through Apollo Education. They run during the school holidays, daily or near-daily, and during term time on Sundays, every week. Group lessons are &pound;40 for the hour, or &pound;55 for the longer, 1.5-hour Year 8 lessons. To book a place, please contact Jing Chen: <a href="mailto:j.chen@apollo-education.com">j.chen@apollo-education.com</a>. Individual sessions are arranged with me directly.</p>
+    <p class="prospectus-item" style="margin-top:1.5em;font-style:italic;">Classes are held online and are booked through Apollo Education. They run during the school holidays, daily or near-daily, and during term time on Sundays, every week. To book a place, please contact Jing Chen: <a href="mailto:j.chen@apollo-education.com">j.chen@apollo-education.com</a>. Individual sessions are arranged with me directly.</p>
 
     <h3 style="font-size:0.8rem;font-weight:normal;letter-spacing:0.14em;text-transform:uppercase;color:#8b6f47;border-bottom:1px solid #d4c4a8;padding-bottom:0.4rem;margin-top:1.8rem;margin-bottom:1rem;">Individual Sessions</h3>
     <p class="prospectus-item" style="display:flex;align-items:center;gap:1.5em;flex-wrap:wrap;"><em>&pound;120 per hour &middot; online or in person</em> <a href="mailto:sam@samquill.com" class="cta-button">Book</a></p>
