@@ -1,0 +1,14 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "site",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-c",
+        "import functools, http.server, socketserver; H = functools.partial(http.server.SimpleHTTPRequestHandler, directory='/Users/samquill/Documents/GitHub/samquill00-rgb.github.io'); socketserver.TCPServer(('', 8000), H).serve_forever()"
+      ],
+      "port": 8000
+    }
+  ]
+}
