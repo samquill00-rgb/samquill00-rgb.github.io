@@ -125,6 +125,11 @@ nav a[data-tooltip]:hover::after {
   opacity: 1;
 }
 
+/* Inline text links in body copy (e.g. email addresses) - keep them in the site palette */
+a {
+  color: #8b6f47;
+}
+
 a.button {
   display: inline-block;
   padding: 0.45rem 1rem;
