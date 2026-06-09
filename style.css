@@ -130,6 +130,16 @@ a {
   color: #8b6f47;
 }
 
+/* Keyboard focus ring in the site palette (shows for keyboard nav, not mouse clicks) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid #8b6f47;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 a.button {
   display: inline-block;
   padding: 0.45rem 1rem;

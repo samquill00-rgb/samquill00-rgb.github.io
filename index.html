@@ -17,86 +17,272 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
-    .password-gate {
-      min-height: 80vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 2rem 0;
-    }
-    .password-gate h1 {
-      margin-bottom: 1.5rem;
-    }
-    .password-form {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      max-width: 280px;
-    }
-    .password-form input[type="password"] {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 1rem;
-      padding: 0.45rem 0.6rem;
-      border: 1px solid #bbb;
-      border-radius: 0;
-      background: #fafaf7;
-      color: #1a1a1a;
-      outline: none;
-      width: 100%;
-    }
-    .password-form input[type="password"]:focus {
-      border-color: #3a2a18;
-    }
-    .password-form button {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 0.95rem;
-      padding: 0.45rem 1.1rem;
-      background: #3a2a18;
-      color: #f5f0e8;
-      border: none;
-      cursor: pointer;
-      align-self: flex-start;
-      letter-spacing: 0.04em;
-    }
-    .password-form button:hover {
-      background: #c4a85a;
-      color: #1a1a1a;
-    }
-    .password-error {
-      font-size: 0.88rem;
-      color: #8b2020;
+    /* Modal overlay */
+    .offer-overlay {
       display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(30, 20, 10, 0.6);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
     }
-    .password-error.visible {
-      display: block;
+    .offer-overlay.active {
+      display: flex;
+    }
+
+    /* Modal box */
+    .offer-modal {
+      background: linear-gradient(135deg, #fdfbf6 0%, #f5f0e6 50%, #fdfbf6 100%);
+      border: 2px solid #b8956a;
+      border-radius: 2px;
+      box-shadow: 0 0 0 1px #f5f0e6, 0 0 0 3px #c9a96e, 0 0 0 4px #f5f0e6, 0 12px 48px rgba(0,0,0,0.25);
+      padding: 2.5rem 2rem 2rem;
+      max-width: 520px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      animation: modalFadeIn 0.25s ease;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Close button */
+    .offer-close {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.9rem;
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      color: #b8956a;
+      cursor: pointer;
+      font-family: 'EB Garamond', Georgia, serif;
+      line-height: 1;
+    }
+    .offer-close:hover {
+      color: #3a2a18;
+    }
+
+    /* Modal heading */
+    .offer-heading {
+      font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+      font-size: 1.1rem;
+      font-weight: normal;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #8b6f47;
+      margin: 0 0 0.3rem;
+    }
+
+    /* Ornamental divider */
+    .offer-divider {
+      color: #b8956a;
+      font-size: 0.9rem;
+      letter-spacing: 0.4em;
+      margin: 0.6rem 0 1.5rem;
+    }
+
+    /* Two-column choice */
+    .offer-choices {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+
+    .offer-choice {
+      flex: 1;
+      max-width: 200px;
+      padding: 1.8rem 1.2rem;
+      background: linear-gradient(135deg, #fdfbf6 0%, #f0ebe0 100%);
+      border: 1.5px solid #c9a96e;
+      border-radius: 2px;
+      text-decoration: none;
+      color: #3a2a18;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .offer-choice:hover {
+      background: #8b6f47;
+      border-color: #8b6f47;
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    .offer-choice:hover .offer-choice-sub {
+      color: #e0d8c8;
+    }
+
+    .offer-choice-title {
+      font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+      font-size: 1.15rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+    }
+
+    .offer-choice-sub {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 0.82rem;
+      font-style: italic;
+      color: #7a6248;
+      line-height: 1.5;
+      transition: color 0.2s ease;
+    }
+
+    @media (max-width: 480px) {
+      .offer-choices {
+        flex-direction: column;
+        align-items: center;
+      }
+      .offer-choice {
+        max-width: 260px;
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
 
-<div class="password-gate">
+<header>
   <h1>SAM QUILL</h1>
-  <form class="password-form" onsubmit="checkPassword(event)">
-    <input type="password" id="pw" placeholder="Password" autocomplete="off" autofocus>
-    <span class="password-error" id="pw-error">Incorrect password.</span>
-    <button type="submit">Enter</button>
-  </form>
+  <nav>
+    <a href="index.html" class="active">Home</a><span class="nav-sep">|</span>
+    <a href="tutoring.html">Tutoring</a><span class="nav-dot">&middot;</span>
+    <a href="testimonials.html">Testimonials</a><span class="nav-dot">&middot;</span>
+    <a href="cv.html">C.V.</a><span class="nav-sep">|</span>
+    <a href="salon-de-conversation.html" data-tooltip="Adult education, one hour at a time">Salon de Conversation</a><span class="nav-sep">|</span>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<section id="home">
+  <p>Dr. Sam Quill is a private tutor in English, History, Philosophy, and Critical Thinking, specialising in scholarship exam preparation for the major public schools, and Oxbridge entrance.</p>
+  <p class="home-location">In-person in London &middot; Online worldwide</p>
+</section>
+
+<div class="recent-success-wrap">
+  <div class="recent-success-box">
+    <span class="recent-success-title">2026 Successes</span>
+    <ul class="recent-success-list">
+      <li>1 scholar to Westminster</li>
+      <li>1 scholar to Winchester</li>
+      <li>2 scholars to Eton</li>
+    </ul>
+  </div>
+</div>
+
+<div class="home-scoreboard">
+  <h3 class="home-scoreboard-title">Scholarship Places Won:</h3>
+  <div class="result-grid home-results">
+    <div class="result-stat" data-from="6" data-to="7">
+      <span class="number"><span class="number-roll"><span>6</span><span>7</span></span></span>
+      <span class="school">Westminster School</span>
+    </div>
+    <div class="result-stat" data-from="4" data-to="5">
+      <span class="number"><span class="number-roll"><span>4</span><span>5</span></span></span>
+      <span class="school">Winchester College</span>
+    </div>
+    <div class="result-stat" data-from="0" data-to="2">
+      <span class="number"><span class="number-roll"><span>0</span><span>2</span></span></span>
+      <span class="school">Eton College</span>
+    </div>
+    <div class="result-stat" data-from="1" data-to="1">
+      <span class="number"><span class="number-roll"><span>1</span></span></span>
+      <span class="school">Harrow School</span>
+    </div>
+  </div>
+</div>
+
+<div class="hero-image-wrap">
+  <img src="SamCoverImage.png" alt="Sam Quill" class="profile">
+  <blockquote class="hero-testimonial">
+    <p>&lsquo;Sam was the finest teacher I had. He opened up poetry and ideas for me.&rsquo;</p>
+    <cite>&mdash; Sam R</cite>
+  </blockquote>
+</div>
+<p class="photo-credit">Photograph: Joshua Rigg</p>
+
+<div class="home-bio-box">
+  <p>Sam holds a First Class degree from Oxford in English, an M.Phil. from Cambridge, and a Ph.D. from Queen Mary, University of London, where he also taught. He is an Associate Fellow of the Higher Education Academy.</p>
+  <p>A full-time private tutor since 2019, he specialises in scholarship examinations at major British public schools, Oxbridge entrance, A-level and GCSE tuition, personal statements and essay prizes. He also runs his &lsquo;Salon de Conversation&rsquo;, a forum for bespoke tutorial sessions for adults in literature, philosophy, theology, and history.</p>
+  <p>Beyond teaching, Sam is a published poet, a musician, and a reviewer for the <em>Times Literary Supplement</em>.</p>
+</div>
+
+<!-- Primary CTAs -->
+<div class="home-cta-row">
+  <button class="home-help-btn" id="offerBtn">WHAT I OFFER</button>
+  <a class="home-help-btn home-help-btn--link" href="contact.html">GET IN TOUCH</a>
+</div>
+
+<footer>
+  <p>Dr. Sam Quill &middot; <a href="contact.html">Contact</a></p>
+</footer>
+
+<!-- Modal overlay -->
+<div class="offer-overlay" id="offerOverlay">
+  <div class="offer-modal">
+    <button class="offer-close" id="offerClose">&times;</button>
+    <p class="offer-heading">What I Offer</p>
+    <div class="offer-divider">&#10086; &middot; &#10086;</div>
+    <div class="offer-choices">
+      <a href="tutoring.html" class="offer-choice">
+        <span class="offer-choice-title">For Students</span>
+        <span class="offer-choice-sub">Scholarships, exams, university entrance &amp; more</span>
+      </a>
+      <a href="salon-de-conversation.html?from=offer" class="offer-choice">
+        <span class="offer-choice-title">For Adults</span>
+        <span class="offer-choice-sub">Bespoke sessions in literature, philosophy &amp; history</span>
+      </a>
+    </div>
+  </div>
 </div>
 
 <script>
-  function checkPassword(e) {
-    e.preventDefault();
-    const input = document.getElementById('pw').value;
-    const error = document.getElementById('pw-error');
-    if (input === 'drquill') {
-      window.location.href = 'index-main.html';
-    } else {
-      error.classList.add('visible');
-      document.getElementById('pw').value = '';
-      document.getElementById('pw').focus();
+  const btn = document.getElementById('offerBtn');
+  const overlay = document.getElementById('offerOverlay');
+  const closeBtn = document.getElementById('offerClose');
+
+  btn.addEventListener('click', function() {
+    overlay.classList.add('active');
+  });
+
+  closeBtn.addEventListener('click', function() {
+    overlay.classList.remove('active');
+  });
+
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) {
+      overlay.classList.remove('active');
     }
-  }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      overlay.classList.remove('active');
+    }
+  });
+
+  // Scoreboard: flash gold and roll up the schools that increased this year.
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      const stats = document.querySelectorAll('.result-stat[data-from]');
+      let delay = 0;
+      stats.forEach(function(stat) {
+        const from = parseInt(stat.dataset.from, 10);
+        const to = parseInt(stat.dataset.to, 10);
+        if (from === to) return;
+        setTimeout(function() {
+          stat.classList.add('flashing', 'rolling');
+        }, delay);
+        delay += 280;
+      });
+    }, 1500);
+  });
 </script>
 
 </body>
