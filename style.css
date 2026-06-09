@@ -1,6 +1,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 18px;
+  background-color: #f8f6f2;
 }
 
 body {
@@ -11,6 +12,14 @@ body {
   margin: 0 auto;
   padding: 3rem 1.5rem;
   line-height: 1.7;
+  animation: pageFadeIn 0.45s ease both;
+}
+
+/* Gentle fade-in on each page load — softens moving between pages */
+@keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none; }
 }
 
 section {
