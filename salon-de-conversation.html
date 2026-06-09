@@ -16,6 +16,24 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Salon — art-deco vines that grow in when you enter the salon */
+    .salon-vines {
+      width: 100%;
+      max-width: 540px;
+      margin: 0.4rem auto -0.4rem;
+      pointer-events: none;
+      line-height: 0;
+    }
+    .salon-vines svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+    .salon-vines .stem {
+      fill: none;
+      stroke: url(#vineGold);
+      stroke-width: 1.8;
+      stroke-linecap: round;
+    }
+  </style>
 </head>
 <body>
 
@@ -39,6 +57,35 @@
       <span class="salon-corner salon-corner-tr">&#10087;</span>
       <span class="salon-corner salon-corner-bl">&#10087;</span>
       <span class="salon-corner salon-corner-br">&#10087;</span>
+
+      <div class="salon-vines" id="salonVine" aria-hidden="true">
+        <svg viewBox="0 0 560 130">
+          <defs>
+            <linearGradient id="vineGold" x1="0" y1="0" x2="0.6" y2="1">
+              <stop offset="0" stop-color="#c9a96e"/>
+              <stop offset="1" stop-color="#8b6f47"/>
+            </linearGradient>
+          </defs>
+          <g id="vineHalf">
+            <path class="stem g1" pathLength="1" d="M280,20 C 248,28 246,52 214,58 C 174,66 168,90 130,98 C 104,104 78,102 50,114"/>
+            <path class="stem g3" pathLength="1" d="M214,58 c 2,-18 -14,-28 -29,-20 c -10,5 -6,18 4,17 c 7,-1 8,-9 2,-12"/>
+            <path class="stem g6" pathLength="1" d="M50,114 c -15,5 -27,-4 -25,-19 c 2,-11 15,-11 18,-2 c 2,7 -5,11 -10,8"/>
+            <path class="leaf g3" fill="#aecaa0" d="M214,58 C 191,47 182,23 192,4 C 214,16 226,42 214,58 Z"/>
+            <path class="leaf g4" fill="#a9c4dc" d="M150,84 C 126,74 112,50 120,30 C 144,44 160,68 150,84 Z"/>
+            <path class="leaf g5" fill="#e3b3c6" d="M90,104 C 66,96 52,74 60,54 C 84,68 100,88 90,104 Z"/>
+            <circle class="bud g3" cx="186" cy="38" r="3.5" fill="#e3b3c6"/>
+            <circle class="bud g6" cx="26" cy="96" r="3" fill="#a9c4dc"/>
+          </g>
+          <use href="#vineHalf" transform="translate(560,0) scale(-1,1)"/>
+          <g class="bloomc g2">
+            <ellipse cx="280" cy="7" rx="5" ry="9" fill="#e3b3c6"/>
+            <ellipse cx="291" cy="17" rx="9" ry="5" fill="#a9c4dc"/>
+            <ellipse cx="269" cy="17" rx="9" ry="5" fill="#aecaa0"/>
+            <ellipse cx="280" cy="27" rx="5" ry="8" fill="#e3b3c6"/>
+            <circle cx="280" cy="17" r="4.5" fill="#c9a96e"/>
+          </g>
+        </svg>
+      </div>
 
       <h2 class="salon-title">Dr. Sam Quill&rsquo;s</h2>
       <h2 class="salon-title">Salon de Conversation</h2>
