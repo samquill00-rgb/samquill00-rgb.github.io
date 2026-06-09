@@ -17,6 +17,89 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Classes — Plan-of-Work button beside each class */
+    .class-list { list-style: none; padding: 0; margin: 0.6em 0 0; }
+    .class-row {
+      display: flex;
+      align-items: center;
+      gap: 0.9em;
+      flex-wrap: wrap;
+      margin-bottom: 0.75em;
+    }
+    .plan-btn {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 0.75rem;
+      font-style: italic;
+      line-height: 1.3;
+      width: 15em;
+      text-align: left;
+      padding: 0.45em 0.8em;
+      border: 1px solid #c9a96e;
+      border-radius: 3px;
+      background: linear-gradient(135deg, #fdfbf6 0%, #f0ebe0 100%);
+      color: #6b5230;
+      cursor: pointer;
+      flex: 0 0 auto;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .plan-btn:hover { background: #8b6f47; color: #fff; border-color: #8b6f47; }
+    .class-name { color: #4a3520; }
+
+    /* Plan-of-Work PDF popup */
+    .pdf-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(30, 20, 10, 0.6);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+    }
+    .pdf-overlay.active { display: flex; }
+    .pdf-modal {
+      background: #fdfbf6;
+      border: 2px solid #b8956a;
+      border-radius: 2px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.3);
+      width: min(900px, 96vw);
+      height: min(90vh, 1100px);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .pdf-modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid #d4c4a8;
+      background: linear-gradient(135deg, #fdfbf6 0%, #f5f0e6 100%);
+    }
+    .pdf-modal-title {
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #8b6f47;
+      margin: 0;
+    }
+    .pdf-modal-actions { display: flex; align-items: center; gap: 1.2rem; }
+    .pdf-open-link { font-size: 0.8rem; color: #8b6f47; text-decoration: underline; white-space: nowrap; }
+    .pdf-close {
+      background: none; border: none;
+      font-size: 1.5rem; line-height: 1;
+      color: #b8956a; cursor: pointer;
+      font-family: 'EB Garamond', Georgia, serif;
+    }
+    .pdf-close:hover { color: #3a2a18; }
+    .pdf-frame { flex: 1; width: 100%; border: none; background: #525659; }
+
+    @media (max-width: 600px) {
+      .plan-btn { width: 100%; }
+    }
+  </style>
 </head>
 <body>
 
@@ -79,10 +162,19 @@
 
   <div class="panel">
     <h3 style="font-size:0.8rem;font-weight:normal;letter-spacing:0.14em;text-transform:uppercase;color:#8b6f47;border-bottom:1px solid #d4c4a8;padding-bottom:0.4rem;margin-bottom:1rem;">Classes</h3>
-    <ul class="services-list" style="columns:1;margin-top:0.5em;">
-      <li>Year 8 Scholarship Preparation (13+)</li>
-      <li>Year 7 Scholarship Preparation</li>
-      <li>Year 6 Interview Preparation and Critical Thinking</li>
+    <ul class="class-list">
+      <li class="class-row">
+        <button type="button" class="plan-btn" data-pdf="plans/year-8-scholarship-summer-2026.pdf" data-title="Year 8 Scholarship — Plan of Work, Summer 2026">See this Plan of Work for the coming Summer Holiday</button>
+        <span class="class-name">Year 8 Scholarship Preparation (13+)</span>
+      </li>
+      <li class="class-row">
+        <button type="button" class="plan-btn" data-pdf="plans/year-7-summer-2026.pdf" data-title="Year 7 — Plan of Work, Summer 2026">See this Plan of Work for the coming Summer Holiday</button>
+        <span class="class-name">Year 7 Scholarship Preparation</span>
+      </li>
+      <li class="class-row">
+        <button type="button" class="plan-btn" data-pdf="plans/critical-thinking-summer-2026.pdf" data-title="Critical Thinking — Plan of Work, Summer 2026">See this Plan of Work for the coming Summer Holiday</button>
+        <span class="class-name">Year 6 Interview Preparation and Critical Thinking</span>
+      </li>
     </ul>
 
     <p class="prospectus-item" style="margin-top:1.5em;font-style:italic;">Classes are held online and are booked through Apollo Education. For classes, please contact Jing Chen: <a href="mailto:j.chen@apollo-education.com">j.chen@apollo-education.com</a>. Individual sessions are arranged with me directly.</p>
@@ -178,6 +270,56 @@
 <footer>
   <p>Dr. Sam Quill &middot; <a href="contact.html">Contact</a></p>
 </footer>
+
+<!-- Plan-of-Work PDF popup -->
+<div class="pdf-overlay" id="pdfOverlay">
+  <div class="pdf-modal">
+    <div class="pdf-modal-head">
+      <p class="pdf-modal-title" id="pdfTitle">Plan of Work</p>
+      <div class="pdf-modal-actions">
+        <a class="pdf-open-link" id="pdfOpen" href="#" target="_blank" rel="noopener noreferrer">Open in new tab &rarr;</a>
+        <button class="pdf-close" id="pdfClose" type="button" aria-label="Close">&times;</button>
+      </div>
+    </div>
+    <iframe class="pdf-frame" id="pdfFrame" title="Plan of Work"></iframe>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const overlay = document.getElementById('pdfOverlay');
+    const frame = document.getElementById('pdfFrame');
+    const titleEl = document.getElementById('pdfTitle');
+    const openLink = document.getElementById('pdfOpen');
+    const closeBtn = document.getElementById('pdfClose');
+
+    function openPdf(pdf, title) {
+      frame.src = pdf;
+      openLink.href = pdf;
+      titleEl.textContent = title || 'Plan of Work';
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closePdf() {
+      overlay.classList.remove('active');
+      frame.src = '';
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.plan-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        openPdf(btn.getAttribute('data-pdf'), btn.getAttribute('data-title'));
+      });
+    });
+    closeBtn.addEventListener('click', closePdf);
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) closePdf();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && overlay.classList.contains('active')) closePdf();
+    });
+  })();
+</script>
 
 </body>
 </html>
