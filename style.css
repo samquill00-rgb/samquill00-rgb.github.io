@@ -366,10 +366,18 @@ ul.pub-list li::before {
   line-height: 1.7;
   margin: 1rem auto 1.2rem;
   max-width: 480px;
-  border-top: 1px solid #c4a85a;
-  border-bottom: 1px solid #c4a85a;
-  padding: 0.6rem 0;
 }
+/* Fading gold lines above & below, matching .salon-divider */
+.salon-pull-quote::before,
+.salon-pull-quote::after {
+  content: "";
+  display: block;
+  height: 1px;
+  background: linear-gradient(to right,
+    transparent 0%, #c9a96e 15%, #b8956a 50%, #c9a96e 85%, transparent 100%);
+}
+.salon-pull-quote::before { margin-bottom: 0.7rem; }
+.salon-pull-quote::after  { margin-top: 0.7rem; }
 
 .salon-pull-quote-attr {
   display: block;
