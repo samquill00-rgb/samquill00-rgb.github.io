@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Trolley Problem</title>
+<style>
+  @page { size: A4; margin: 18mm; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: Georgia, "Times New Roman", serif;
+    color: #000; line-height: 1.6; max-width: 175mm; margin: 0 auto; padding: 20mm 12mm;
+  }
+  .site-header { text-align: right; color: #888; font-size: 11pt; margin: 0 0 8mm; }
+  h1 { font-size: 27pt; font-weight: bold; margin: 0 0 8mm; }
+  .lede { font-size: 11.5pt; margin: 0 0 12mm; }
+  .actions { display: flex; flex-direction: column; align-items: flex-start; gap: 3mm; margin: 0 0 18mm; }
+  .btn {
+    font-family: Georgia, "Times New Roman", serif; font-size: 11pt; color: #000;
+    background: #f4f4f4; border: 1px solid #999; border-radius: 3px;
+    padding: 2.5mm 5mm; margin: 0; cursor: pointer; text-decoration: none; display: inline-block;
+  }
+  .btn:hover { background: #e8e8e8; }
+  .entry { margin: 0; }
+  .entry + .entry { page-break-before: always; }
+  @media screen { .entry + .entry { margin-top: 18mm; padding-top: 18mm; border-top: 1px solid #ddd; } }
+  h2 { font-size: 15pt; font-weight: bold; margin: 0 0 4mm; }
+  .meta { font-style: italic; font-size: 10pt; margin: 0 0 6mm; }
+  .context { font-size: 11.5pt; margin: 0 0 9mm; }
+  figure { margin: 8mm 0 0; }
+  figure svg { display: block; width: 100%; height: auto; max-height: 120mm; }
+  figcaption { font-size: 9pt; color: #444; font-style: italic; margin-top: 2mm; }
+
+  .caption { font-size: 11pt; margin: 5mm 0 4mm; min-height: 16mm; }
+  .caption .step-label {
+    display: block; font-size: 9pt; color: #888; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 2.5mm;
+  }
+  .step-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 4mm; margin: 5mm 0; }
+  .step-btn {
+    font-family: Georgia, "Times New Roman", serif; font-size: 11pt; color: #000;
+    background: #f4f4f4; border: 1px solid #999; border-radius: 3px; padding: 2mm 4mm; cursor: pointer;
+  }
+  .step-btn:hover { background: #e8e8e8; }
+  .step-btn.active { background: #e2e2e2; border-color: #555; font-weight: bold; }
+
+  /* diagram internals */
+  .tram { transition: transform 0.9s ease; }
+  .mark { transition: opacity 0.45s ease; }
+  .lever-pos { transition: opacity 0.3s ease; }
+  .track { stroke: #b0b0b0; stroke-width: 6; fill: none; stroke-linecap: round; }
+  .hi { stroke: #c0392b; stroke-width: 7; fill: none; stroke-linecap: round; }
+  .pname { font-size: 9pt; fill: #666; }
+  .closing .context { margin-bottom: 4mm; }
+  .question { font-size: 11.5pt; margin: 4mm 0 0; }
+
+  @media print { .actions, .step-controls { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="site-header">Dr Sam: Critical Thinking Class</div>
+
+<h1>The Trolley Problem</h1>
+
+<p class="lede">A set of imaginary cases, each trading one life against five, designed to test how we actually decide what is right. (&lsquo;Trolley&rsquo; is the American word for what we in Britain call a tram &mdash; the runaway vehicle in every diagram below.) Use the buttons under each diagram to set the choice and watch what follows.</p>
+
+<div class="actions">
+  <button class="btn" onclick="window.print()">Print / Save as PDF</button>
+  <a class="btn" href="trolley-problem-sources.pdf" target="_blank" rel="noopener">View textual sources</a>
+</div>
+
+<!-- shared person symbol -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="person">
+      <circle cx="0" cy="-15" r="4.5" fill="#000"/>
+      <line x1="0" y1="-10.5" x2="0" y2="0" stroke="#000" stroke-width="2"/>
+      <line x1="-5" y1="-6" x2="5" y2="-6" stroke="#000" stroke-width="2"/>
+      <line x1="0" y1="0" x2="-4" y2="9" stroke="#000" stroke-width="2"/>
+      <line x1="0" y1="0" x2="4" y2="9" stroke="#000" stroke-width="2"/>
+    </g>
+  </defs>
+</svg>
+
+<!-- 1. THE SWITCH -->
+<section class="entry">
+  <h2>1.&nbsp;&nbsp;The Switch</h2>
+  <p class="meta">Philippa Foot &middot; 1967</p>
+  <p class="context">A runaway tram is hurtling down the track towards five people who cannot escape. You stand beside a lever. Leave it and the tram runs straight on; pull it and the tram turns onto a side track, where one person stands. Which way should the lever go?</p>
+  <figure>
+    <svg id="switch" viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg">
+      <path class="track" d="M30,110 H600"/>
+      <path class="track" d="M330,110 C 380,110 392,172 440,172 L600,172"/>
+      <path id="switch-hi-main" class="hi mark" style="opacity:0" d="M330,110 H600"/>
+      <path id="switch-hi-side" class="hi mark" style="opacity:0" d="M330,110 C 380,110 392,172 440,172 L600,172"/>
+      <!-- junction + lever -->
+      <circle cx="330" cy="110" r="6" fill="#777"/>
+      <g id="switch-lever-straight" class="lever-pos"><line x1="330" y1="110" x2="330" y2="84" stroke="#333" stroke-width="4"/><circle cx="330" cy="82" r="4.5" fill="#333"/></g>
+      <g id="switch-lever-pulled" class="lever-pos" style="opacity:0"><line x1="330" y1="110" x2="352" y2="92" stroke="#333" stroke-width="4"/><circle cx="354" cy="90" r="4.5" fill="#333"/></g>
+      <text class="pname" x="330" y="128" text-anchor="middle">lever</text>
+      <!-- five on main track -->
+      <g><use href="#person" x="545" y="110"/><use href="#person" x="560" y="110"/><use href="#person" x="575" y="110"/><use href="#person" x="552" y="110"/><use href="#person" x="568" y="110"/></g>
+      <text class="pname" x="562" y="128" text-anchor="middle">five people</text>
+      <!-- one on side track -->
+      <use href="#person" x="560" y="172"/>
+      <text class="pname" x="560" y="190" text-anchor="middle">one person</text>
+      <!-- outcome marks -->
+      <text id="switch-five-x" class="mark" style="opacity:0" x="562" y="96" font-size="30" fill="#c0392b" text-anchor="middle" font-weight="bold">&#10007;</text>
+      <text id="switch-five-ok" class="mark" style="opacity:0" x="562" y="96" font-size="24" fill="#2e7d32" text-anchor="middle">&#10003;</text>
+      <text id="switch-one-x" class="mark" style="opacity:0" x="560" y="158" font-size="30" fill="#c0392b" text-anchor="middle" font-weight="bold">&#10007;</text>
+      <!-- tram -->
+      <g id="switch-tram" class="tram">
+        <rect x="36" y="93" width="56" height="30" rx="6" fill="#333"/>
+        <rect x="44" y="99" width="16" height="11" fill="#cfe3f5"/><rect x="68" y="99" width="16" height="11" fill="#cfe3f5"/>
+        <circle cx="50" cy="126" r="4" fill="#111"/><circle cx="78" cy="126" r="4" fill="#111"/>
+      </g>
+    </svg>
+    <div class="caption" id="switch-caption"></div>
+    <div class="step-controls">
+      <button class="step-btn" data-state="straight" onclick="setState('switch','straight')">Leave the lever</button>
+      <button class="step-btn" data-state="divert" onclick="setState('switch','divert')">Pull the lever</button>
+      <button class="step-btn" data-state="ready" onclick="setState('switch','ready')" style="margin-left:auto">Reset</button>
+    </div>
+    <figcaption>Most people pull the lever.</figcaption>
+  </figure>
+</section>
+
+<!-- 2. THE FOOTBRIDGE -->
+<section class="entry">
+  <h2>2.&nbsp;&nbsp;The Footbridge</h2>
+  <p class="meta">Judith Jarvis Thomson &middot; 1976</p>
+  <p class="context">The same tram is about to kill five people. This time you are on a footbridge above the track, beside a large stranger. There is no lever. The only way to stop the tram is to push the stranger off the bridge into its path: his body would halt it, but he would die. Hold back, or push?</p>
+  <figure>
+    <svg id="bridge" viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg">
+      <path class="track" d="M30,150 H600"/>
+      <path id="bridge-hi-five" class="hi mark" style="opacity:0" d="M120,150 H600"/>
+      <path id="bridge-hi-stop" class="hi mark" style="opacity:0" d="M120,150 H326"/>
+      <!-- footbridge -->
+      <line x1="150" y1="86" x2="300" y2="86" stroke="#777" stroke-width="6"/>
+      <line x1="165" y1="86" x2="165" y2="150" stroke="#ccc" stroke-width="3"/>
+      <line x1="285" y1="86" x2="285" y2="150" stroke="#ccc" stroke-width="3"/>
+      <use href="#person" x="190" y="86"/>
+      <text class="pname" x="190" y="61" text-anchor="middle">you</text>
+      <!-- stranger on the bridge -->
+      <g id="bridge-man-bridge" class="mark" style="opacity:0"><g transform="translate(252,86) scale(1.4)"><use href="#person" x="0" y="0"/></g><text class="pname" x="252" y="50" text-anchor="middle">stranger</text></g>
+      <!-- stranger fallen on the track -->
+      <g id="bridge-man-fall" class="mark" style="opacity:0"><ellipse cx="332" cy="150" rx="22" ry="9" fill="#000"/><circle cx="350" cy="146" r="5" fill="#000"/></g>
+      <!-- five -->
+      <g><use href="#person" x="545" y="150"/><use href="#person" x="560" y="150"/><use href="#person" x="575" y="150"/><use href="#person" x="552" y="150"/><use href="#person" x="568" y="150"/></g>
+      <text class="pname" x="562" y="168" text-anchor="middle">five people</text>
+      <!-- marks -->
+      <text id="bridge-five-x" class="mark" style="opacity:0" x="562" y="136" font-size="30" fill="#c0392b" text-anchor="middle" font-weight="bold">&#10007;</text>
+      <text id="bridge-five-ok" class="mark" style="opacity:0" x="562" y="136" font-size="24" fill="#2e7d32" text-anchor="middle">&#10003;</text>
+      <text id="bridge-man-x" class="mark" style="opacity:0" x="332" y="134" font-size="30" fill="#c0392b" text-anchor="middle" font-weight="bold">&#10007;</text>
+      <!-- tram -->
+      <g id="bridge-tram" class="tram">
+        <rect x="36" y="133" width="56" height="30" rx="6" fill="#333"/>
+        <rect x="44" y="139" width="16" height="11" fill="#cfe3f5"/><rect x="68" y="139" width="16" height="11" fill="#cfe3f5"/>
+        <circle cx="50" cy="166" r="4" fill="#111"/><circle cx="78" cy="166" r="4" fill="#111"/>
+      </g>
+    </svg>
+    <div class="caption" id="bridge-caption"></div>
+    <div class="step-controls">
+      <button class="step-btn" data-state="hold" onclick="setState('bridge','hold')">Hold back</button>
+      <button class="step-btn" data-state="push" onclick="setState('bridge','push')">Push the stranger</button>
+      <button class="step-btn" data-state="ready" onclick="setState('bridge','ready')" style="margin-left:auto">Reset</button>
+    </div>
+    <figcaption>The arithmetic is the same as the Switch &mdash; one life for five &mdash; yet most people will not push.</figcaption>
+  </figure>
+</section>
+
+<!-- 3. THE LOOP -->
+<section class="entry">
+  <h2>3.&nbsp;&nbsp;The Loop</h2>
+  <p class="meta">Judith Jarvis Thomson &middot; 1985</p>
+  <p class="context">Again you have a lever. But the side track now loops back round to the main line, so the tram would return and kill the five anyway &mdash; unless the one large person on the loop stops it. Here the one person&rsquo;s body is not an unlucky side effect; it is what saves the five. Leave the lever, or pull it?</p>
+  <figure>
+    <svg id="loop" viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg">
+      <path class="track" d="M30,100 H600"/>
+      <path class="track" d="M300,100 C 342,100 348,164 392,164 L520,164 C 560,164 560,100 598,100"/>
+      <path id="loop-hi-main" class="hi mark" style="opacity:0" d="M300,100 H600"/>
+      <path id="loop-hi-loop" class="hi mark" style="opacity:0" d="M300,100 C 342,100 348,164 392,164 L470,164"/>
+      <!-- junction + lever -->
+      <circle cx="300" cy="100" r="6" fill="#777"/>
+      <g id="loop-lever-straight" class="lever-pos"><line x1="300" y1="100" x2="300" y2="74" stroke="#333" stroke-width="4"/><circle cx="300" cy="72" r="4.5" fill="#333"/></g>
+      <g id="loop-lever-pulled" class="lever-pos" style="opacity:0"><line x1="300" y1="100" x2="322" y2="82" stroke="#333" stroke-width="4"/><circle cx="324" cy="80" r="4.5" fill="#333"/></g>
+      <text class="pname" x="300" y="118" text-anchor="middle">lever</text>
+      <!-- five further along the main line -->
+      <g><use href="#person" x="558" y="100"/><use href="#person" x="573" y="100"/><use href="#person" x="588" y="100"/><use href="#person" x="565" y="100"/><use href="#person" x="580" y="100"/></g>
+      <text class="pname" x="575" y="118" text-anchor="middle">five people</text>
+      <!-- one on the loop -->
+      <use href="#person" x="455" y="164"/>
+      <text class="pname" x="455" y="182" text-anchor="middle">one person (stops the tram)</text>
+      <!-- marks -->
+      <text id="loop-five-x" class="mark" style="opacity:0" x="575" y="86" font-size="30" fill="#c0392b" text-anchor="middle" font-weight="bold">&#10007;</text>
+      <text id="loop-five-ok" class="mark" style="opacity:0" x="575" y="86" font-size="24" fill="#2e7d32" text-anchor="middle">&#10003;</text>
+      <text id="loop-one-x" class="mark" style="opacity:0" x="455" y="150" font-size="30" fill="#c0392b" text-anchor="middle" font-weight="bold">&#10007;</text>
+      <!-- tram -->
+      <g id="loop-tram" class="tram">
+        <rect x="36" y="83" width="56" height="30" rx="6" fill="#333"/>
+        <rect x="44" y="89" width="16" height="11" fill="#cfe3f5"/><rect x="68" y="89" width="16" height="11" fill="#cfe3f5"/>
+        <circle cx="50" cy="116" r="4" fill="#111"/><circle cx="78" cy="116" r="4" fill="#111"/>
+      </g>
+    </svg>
+    <div class="caption" id="loop-caption"></div>
+    <div class="step-controls">
+      <button class="step-btn" data-state="straight" onclick="setState('loop','straight')">Leave the lever</button>
+      <button class="step-btn" data-state="divert" onclick="setState('loop','divert')">Pull the lever</button>
+      <button class="step-btn" data-state="ready" onclick="setState('loop','ready')" style="margin-left:auto">Reset</button>
+    </div>
+    <figcaption>The lever does the same as in the Switch &mdash; but now the one person is the means, not a bystander.</figcaption>
+  </figure>
+</section>
+
+<!-- 4. THE TRANSPLANT -->
+<section class="entry">
+  <h2>4.&nbsp;&nbsp;The Transplant</h2>
+  <p class="meta">After Philippa Foot and Judith Jarvis Thomson</p>
+  <p class="context">No tram this time, but the same arithmetic. A surgeon has five patients who will die without transplants. A healthy visitor arrives for a check-up, and his organs would save all five. The surgeon&rsquo;s choice is the lever here. Refuse, or operate?</p>
+  <figure>
+    <svg id="ward" viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg">
+      <!-- healthy visitor (left) -->
+      <use href="#person" x="70" y="118"/>
+      <text class="pname" x="70" y="136" text-anchor="middle">healthy visitor</text>
+      <text id="ward-visitor-x" class="mark" style="opacity:0" x="70" y="104" font-size="30" fill="#c0392b" text-anchor="middle" font-weight="bold">&#10007;</text>
+      <text id="ward-visitor-ok" class="mark" style="opacity:0" x="70" y="104" font-size="24" fill="#2e7d32" text-anchor="middle">&#10003;</text>
+      <!-- surgeon (middle) -->
+      <use href="#person" x="300" y="118"/>
+      <text class="pname" x="300" y="136" text-anchor="middle">surgeon</text>
+      <!-- five patients (right), in beds -->
+      <g stroke="#aaa" stroke-width="2" fill="none">
+        <rect x="516" y="14" width="90" height="20" rx="3"/><rect x="516" y="52" width="90" height="20" rx="3"/>
+        <rect x="516" y="90" width="90" height="20" rx="3"/><rect x="516" y="128" width="90" height="20" rx="3"/>
+        <rect x="516" y="166" width="90" height="20" rx="3"/>
+      </g>
+      <g><circle cx="530" cy="24" r="5" fill="#000"/><circle cx="530" cy="62" r="5" fill="#000"/><circle cx="530" cy="100" r="5" fill="#000"/><circle cx="530" cy="138" r="5" fill="#000"/><circle cx="530" cy="176" r="5" fill="#000"/></g>
+      <g class="pname" text-anchor="end">
+        <text x="508" y="27">Patient 1: Needs a heart</text>
+        <text x="508" y="65">Patient 2: Needs a liver</text>
+        <text x="508" y="103">Patient 3: Needs a kidney</text>
+        <text x="508" y="141">Patient 4: Needs a kidney</text>
+        <text x="508" y="179">Patient 5: Needs a lung</text>
+      </g>
+      <!-- organ-transfer arrows (operate): visitor -> patients -->
+      <g id="ward-link" class="mark" style="opacity:0" stroke="#c0392b" stroke-width="1.6" fill="none" stroke-dasharray="5 3">
+        <path d="M88,110 C 320,12 360,24 514,24"/><path d="M88,112 C 330,60 360,62 514,62"/>
+        <path d="M90,114 C 360,104 380,100 514,100"/><path d="M88,116 C 330,150 360,138 514,138"/>
+        <path d="M88,118 C 320,196 360,176 514,176"/>
+      </g>
+      <!-- marks: five patients -->
+      <g id="ward-five-x" class="mark" style="opacity:0" fill="#c0392b" font-weight="bold" font-size="20" text-anchor="middle">
+        <text x="530" y="30">&#10007;</text><text x="530" y="68">&#10007;</text><text x="530" y="106">&#10007;</text><text x="530" y="144">&#10007;</text><text x="530" y="182">&#10007;</text>
+      </g>
+      <g id="ward-five-ok" class="mark" style="opacity:0" fill="#2e7d32" font-size="17" text-anchor="middle">
+        <text x="554" y="29">&#10003;</text><text x="554" y="67">&#10003;</text><text x="554" y="105">&#10003;</text><text x="554" y="143">&#10003;</text><text x="554" y="181">&#10003;</text>
+      </g>
+    </svg>
+    <div class="caption" id="ward-caption"></div>
+    <div class="step-controls">
+      <button class="step-btn" data-state="refuse" onclick="setState('ward','refuse')">Refuse</button>
+      <button class="step-btn" data-state="operate" onclick="setState('ward','operate')">Operate (kill the one)</button>
+      <button class="step-btn" data-state="ready" onclick="setState('ward','ready')" style="margin-left:auto">Reset</button>
+    </div>
+    <figcaption>Same arithmetic again &mdash; one life for five &mdash; but here almost everyone refuses.</figcaption>
+  </figure>
+</section>
+
+<!-- 5. THE PUZZLE -->
+<section class="entry closing">
+  <h2>5.&nbsp;&nbsp;The Puzzle</h2>
+  <p class="context">In every case one life is traded for five, yet most people pull the lever in the Switch but refuse in the Footbridge and the Transplant. One way of thinking counts only the outcome: five deaths are worse than one, so saving the greater number is always right. Another way holds that some actions &mdash; using a person&rsquo;s body as a tool, or deliberately killing the innocent &mdash; are wrong in themselves, whatever the numbers. The trolley problem is built to make these two ways of thinking collide.</p>
+  <p class="question"><strong>For discussion.</strong> Why does pulling the lever feel different from pushing the stranger off the bridge, when both trade one life for five? Is there a real moral difference between them, or only a difference in how they feel?</p>
+</section>
+
+<script>
+(function () {
+  var DATA = {
+    switch: {
+      tram: '#switch-tram',
+      marks: ['switch-lever-straight','switch-lever-pulled','switch-hi-main','switch-hi-side','switch-five-x','switch-five-ok','switch-one-x'],
+      states: {
+        ready:   { label: 'The set-up', text: 'A runaway tram races towards five people. The lever is set to let it run straight on; one person stands on the side track.', tram: 'translate(0px,0px)', on: ['switch-lever-straight'] },
+        straight:{ label: 'Lever left alone', text: 'The tram stays on the main line and kills the five. The one on the side track is untouched.', tram: 'translate(454px,0px)', on: ['switch-lever-straight','switch-hi-main','switch-five-x'] },
+        divert:  { label: 'Lever pulled', text: 'The lever throws across and the tram takes the side track: one is killed, the five are saved.', tram: 'translate(454px,62px)', on: ['switch-lever-pulled','switch-hi-side','switch-one-x','switch-five-ok'] }
+      }
+    },
+    bridge: {
+      tram: '#bridge-tram',
+      marks: ['bridge-man-bridge','bridge-man-fall','bridge-hi-five','bridge-hi-stop','bridge-five-x','bridge-five-ok','bridge-man-x'],
+      states: {
+        ready:{ label: 'The set-up', text: 'The tram races towards the five. You and a large stranger stand on the footbridge above the track.', tram: 'translate(0px,0px)', on: ['bridge-man-bridge'] },
+        hold: { label: 'You hold back', text: 'You do nothing. The tram runs underneath the bridge and on to the five, who are killed.', tram: 'translate(454px,0px)', on: ['bridge-man-bridge','bridge-hi-five','bridge-five-x'] },
+        push: { label: 'You push him', text: 'The stranger falls onto the track. His body stops the tram before it reaches the five: he is killed, the five are saved.', tram: 'translate(208px,0px)', on: ['bridge-man-fall','bridge-hi-stop','bridge-five-ok','bridge-man-x'] }
+      }
+    },
+    loop: {
+      tram: '#loop-tram',
+      marks: ['loop-lever-straight','loop-lever-pulled','loop-hi-main','loop-hi-loop','loop-five-x','loop-five-ok','loop-one-x'],
+      states: {
+        ready:   { label: 'The set-up', text: 'The tram races towards the five. A side track loops away and rejoins the line just before them; one person stands on the loop.', tram: 'translate(0px,0px)', on: ['loop-lever-straight'] },
+        straight:{ label: 'Lever left alone', text: 'The tram stays on the main line and kills the five.', tram: 'translate(486px,0px)', on: ['loop-lever-straight','loop-hi-main','loop-five-x'] },
+        divert:  { label: 'Lever pulled', text: 'The tram takes the loop and is stopped by the one person before it can circle back. The five are saved — but the one is now the very means of saving them.', tram: 'translate(372px,64px)', on: ['loop-lever-pulled','loop-hi-loop','loop-one-x','loop-five-ok'] }
+      }
+    },
+    ward: {
+      tram: null,
+      marks: ['ward-link','ward-five-x','ward-five-ok','ward-visitor-x','ward-visitor-ok'],
+      states: {
+        ready:  { label: 'The set-up', text: 'Five patients will die without transplants. A healthy visitor arrives for a check-up.', on: [] },
+        refuse: { label: 'The surgeon refuses', text: 'The surgeon does nothing wrong by acting: the five patients die of their illnesses; the visitor goes home unharmed.', on: ['ward-five-x','ward-visitor-ok'] },
+        operate:{ label: 'The surgeon operates', text: 'The surgeon kills the visitor and uses his organs: the five are saved. The arithmetic matches the Switch exactly — yet this feels monstrous.', on: ['ward-link','ward-five-ok','ward-visitor-x'] }
+      }
+    }
+  };
+
+  window.setState = function (id, name) {
+    var d = DATA[id]; if (!d) return;
+    var s = d.states[name]; if (!s) return;
+    var tram = d.tram ? document.querySelector(d.tram) : null;
+    if (tram && s.tram !== undefined) tram.style.transform = s.tram;
+    d.marks.forEach(function (m) {
+      var el = document.getElementById(m);
+      if (el) el.style.opacity = (s.on.indexOf(m) !== -1) ? 1 : 0;
+    });
+    var cap = document.getElementById(id + '-caption');
+    if (cap) cap.innerHTML = '<span class="step-label">' + s.label + '</span>' + s.text;
+    // button active state
+    var sectionControls = document.getElementById(id + '-caption').nextElementSibling;
+    if (sectionControls) {
+      sectionControls.querySelectorAll('.step-btn').forEach(function (b) {
+        b.classList.toggle('active', b.getAttribute('data-state') === name);
+      });
+    }
+  };
+
+  ['switch','bridge','loop','ward'].forEach(function (id) { window.setState(id, 'ready'); });
+})();
+</script>
+
+</body>
+</html>
