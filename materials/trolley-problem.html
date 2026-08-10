@@ -126,53 +126,9 @@
   </figure>
 </section>
 
-<!-- 2. THE FOOTBRIDGE -->
+<!-- 2. THE LOOP -->
 <section class="entry">
-  <h2>2.&nbsp;&nbsp;The Footbridge</h2>
-  <p class="meta">Judith Jarvis Thomson &middot; 1976</p>
-  <p class="context">The same tram is about to kill five people. This time you are on a footbridge above the track, beside a large stranger. There is no lever. The only way to stop the tram is to push the stranger off the bridge into its path: his body would halt it, but he would die. Hold back, or push?</p>
-  <figure>
-    <svg id="bridge" viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg">
-      <path class="track" d="M30,150 H600"/>
-      <path id="bridge-hi-five" class="hi mark" style="opacity:0" d="M120,150 H600"/>
-      <path id="bridge-hi-stop" class="hi mark" style="opacity:0" d="M120,150 H326"/>
-      <!-- footbridge -->
-      <line x1="150" y1="86" x2="300" y2="86" stroke="#777" stroke-width="6"/>
-      <line x1="165" y1="86" x2="165" y2="150" stroke="#ccc" stroke-width="3"/>
-      <line x1="285" y1="86" x2="285" y2="150" stroke="#ccc" stroke-width="3"/>
-      <use href="#person" x="190" y="86"/>
-      <text class="pname" x="190" y="61" text-anchor="middle">you</text>
-      <!-- stranger on the bridge -->
-      <g id="bridge-man-bridge" class="mark" style="opacity:0"><g transform="translate(252,86) scale(1.4)"><use href="#person" x="0" y="0"/></g><text class="pname" x="252" y="50" text-anchor="middle">stranger</text></g>
-      <!-- stranger fallen on the track -->
-      <g id="bridge-man-fall" class="mark" style="opacity:0"><ellipse cx="332" cy="150" rx="22" ry="9" fill="#000"/><circle cx="350" cy="146" r="5" fill="#000"/></g>
-      <!-- five -->
-      <g><use href="#person" x="545" y="150"/><use href="#person" x="560" y="150"/><use href="#person" x="575" y="150"/><use href="#person" x="552" y="150"/><use href="#person" x="568" y="150"/></g>
-      <text class="pname" x="562" y="168" text-anchor="middle">five people</text>
-      <!-- marks -->
-      <text id="bridge-five-x" class="mark" style="opacity:0" x="562" y="136" font-size="30" fill="#c0392b" text-anchor="middle" font-weight="bold">&#10007;</text>
-      <text id="bridge-five-ok" class="mark" style="opacity:0" x="562" y="136" font-size="24" fill="#2e7d32" text-anchor="middle">&#10003;</text>
-      <text id="bridge-man-x" class="mark" style="opacity:0" x="332" y="134" font-size="30" fill="#c0392b" text-anchor="middle" font-weight="bold">&#10007;</text>
-      <!-- tram -->
-      <g id="bridge-tram" class="tram">
-        <rect x="36" y="133" width="56" height="30" rx="6" fill="#333"/>
-        <rect x="44" y="139" width="16" height="11" fill="#cfe3f5"/><rect x="68" y="139" width="16" height="11" fill="#cfe3f5"/>
-        <circle cx="50" cy="166" r="4" fill="#111"/><circle cx="78" cy="166" r="4" fill="#111"/>
-      </g>
-    </svg>
-    <div class="caption" id="bridge-caption"></div>
-    <div class="step-controls">
-      <button class="step-btn" data-state="hold" onclick="setState('bridge','hold')">Hold back</button>
-      <button class="step-btn" data-state="push" onclick="setState('bridge','push')">Push the stranger</button>
-      <button class="step-btn" data-state="ready" onclick="setState('bridge','ready')" style="margin-left:auto">Reset</button>
-    </div>
-    <figcaption>The arithmetic is the same as the Switch &mdash; one life for five &mdash; yet most people will not push.</figcaption>
-  </figure>
-</section>
-
-<!-- 3. THE LOOP -->
-<section class="entry">
-  <h2>3.&nbsp;&nbsp;The Loop</h2>
+  <h2>2.&nbsp;&nbsp;The Loop</h2>
   <p class="meta">Judith Jarvis Thomson &middot; 1985</p>
   <p class="context">Again you have a lever. But the side track now loops back round to the main line, so the tram would return and kill the five anyway &mdash; unless the one large person on the loop stops it. Here the one person&rsquo;s body is not an unlucky side effect; it is what saves the five. Leave the lever, or pull it?</p>
   <figure>
@@ -210,6 +166,50 @@
       <button class="step-btn" data-state="ready" onclick="setState('loop','ready')" style="margin-left:auto">Reset</button>
     </div>
     <figcaption>The lever does the same as in the Switch &mdash; but now the one person is the means, not a bystander.</figcaption>
+  </figure>
+</section>
+
+<!-- 3. THE FOOTBRIDGE -->
+<section class="entry">
+  <h2>3.&nbsp;&nbsp;The Footbridge</h2>
+  <p class="meta">Judith Jarvis Thomson &middot; 1976</p>
+  <p class="context">The same tram is about to kill five people. This time you are on a footbridge above the track, beside a large stranger. There is no lever. The only way to stop the tram is to push the stranger off the bridge into its path: his body would halt it, but he would die. The arithmetic is exactly that of the Loop, one body used to save five; what has changed is the means. In the Loop you pulled a lever; here you must lay your own hands on a man and push him to his death. Hold back, or push?</p>
+  <figure>
+    <svg id="bridge" viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg">
+      <path class="track" d="M30,150 H600"/>
+      <path id="bridge-hi-five" class="hi mark" style="opacity:0" d="M120,150 H600"/>
+      <path id="bridge-hi-stop" class="hi mark" style="opacity:0" d="M120,150 H326"/>
+      <!-- footbridge -->
+      <line x1="150" y1="86" x2="300" y2="86" stroke="#777" stroke-width="6"/>
+      <line x1="165" y1="86" x2="165" y2="150" stroke="#ccc" stroke-width="3"/>
+      <line x1="285" y1="86" x2="285" y2="150" stroke="#ccc" stroke-width="3"/>
+      <use href="#person" x="190" y="86"/>
+      <text class="pname" x="190" y="61" text-anchor="middle">you</text>
+      <!-- stranger on the bridge -->
+      <g id="bridge-man-bridge" class="mark" style="opacity:0"><g transform="translate(252,86) scale(1.4)"><use href="#person" x="0" y="0"/></g><text class="pname" x="252" y="50" text-anchor="middle">stranger</text></g>
+      <!-- stranger fallen on the track -->
+      <g id="bridge-man-fall" class="mark" style="opacity:0"><ellipse cx="332" cy="150" rx="22" ry="9" fill="#000"/><circle cx="350" cy="146" r="5" fill="#000"/></g>
+      <!-- five -->
+      <g><use href="#person" x="545" y="150"/><use href="#person" x="560" y="150"/><use href="#person" x="575" y="150"/><use href="#person" x="552" y="150"/><use href="#person" x="568" y="150"/></g>
+      <text class="pname" x="562" y="168" text-anchor="middle">five people</text>
+      <!-- marks -->
+      <text id="bridge-five-x" class="mark" style="opacity:0" x="562" y="136" font-size="30" fill="#c0392b" text-anchor="middle" font-weight="bold">&#10007;</text>
+      <text id="bridge-five-ok" class="mark" style="opacity:0" x="562" y="136" font-size="24" fill="#2e7d32" text-anchor="middle">&#10003;</text>
+      <text id="bridge-man-x" class="mark" style="opacity:0" x="332" y="134" font-size="30" fill="#c0392b" text-anchor="middle" font-weight="bold">&#10007;</text>
+      <!-- tram -->
+      <g id="bridge-tram" class="tram">
+        <rect x="36" y="133" width="56" height="30" rx="6" fill="#333"/>
+        <rect x="44" y="139" width="16" height="11" fill="#cfe3f5"/><rect x="68" y="139" width="16" height="11" fill="#cfe3f5"/>
+        <circle cx="50" cy="166" r="4" fill="#111"/><circle cx="78" cy="166" r="4" fill="#111"/>
+      </g>
+    </svg>
+    <div class="caption" id="bridge-caption"></div>
+    <div class="step-controls">
+      <button class="step-btn" data-state="hold" onclick="setState('bridge','hold')">Hold back</button>
+      <button class="step-btn" data-state="push" onclick="setState('bridge','push')">Push the stranger</button>
+      <button class="step-btn" data-state="ready" onclick="setState('bridge','ready')" style="margin-left:auto">Reset</button>
+    </div>
+    <figcaption>The arithmetic is the same as the Switch &mdash; one life for five &mdash; yet most people will not push.</figcaption>
   </figure>
 </section>
 
